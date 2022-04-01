@@ -350,8 +350,8 @@ Let $f:(\Omega, \F) \mapsto (\bar{\R}, \bar{\B})$ be measurable, then
     If $f,g\in \M, a,b\in \R$ then $af+bg \in \M$ since linear combinations of bounded function is bounded same for measurability.
     \item $\I_\Omega \in \M$ obviously.
     \item If $(f_n) \in \M$ satisfy $ 0<(f_n)\leq c < \infty$ and $f_n \uparrow$, then $\biglim{n} f_n \in \M$ (limit exist because bounded convergent sequence, and limit of measurable functions are measurable)
-\end{enumerate}Denote $\tau:= \{A_1 \times A_2 | A_i\in \F_i\}$, $\I_A \in \M$ since $\forall A\in \tau, \I_A{\omega_1, \omega_2} = \I_{A_1}(\omega_1)\cdot \I_{A_2}(\omega_2)$ which is clearly bounded, and if we restrict one coordinate, it it either 0 or indicator function of the other coordinate which is measurable.\\
-But $\tau$ is a $\pi$-system, therefore by Monotone Class theorem \ref{Monotonclass}:
+\end{enumerate}Denote $\tau:= \{A_1 \times A_2 | A_i\in \F_i\}$, $\I_A \in \M$ since $\forall A\in \tau, \I_A{(\omega_1, \omega_2)} = \I_{A_1}(\omega_1)\cdot \I_{A_2}(\omega_2)$ which is clearly bounded, and if we restrict one coordinate, it it either 0 or indicator function of the other coordinate which is measurable.\\
+Plus $\tau$ is a $\pi$-system shown is the previous exercise, therefore by Monotone Class theorem \ref{Monotonclass}:
 \begin{equation*}
     \{\text{all bounded $\F$-measurable functions} \subset \M\}
 \end{equation*}Note $\sigma(\tau) = \F$ 
@@ -379,8 +379,7 @@ The Lebesgue analogue would be to integrate on $\Omega_1\times \Omega_2$ with th
 \begin{rem}
 This definition is defined on the $\pi$-system which is $\tau$, but we have to extend it to the whole product $\sigma$-algebra
 \end{rem}
-We can define this product measure starting with the "rectangle" $A_1 \cdot A_2$ above then extending it using the Carathéodory's machinery.But since we have no idea what result measure we want, we could pursue the second method:
-However, Fubini's theorem suggest an alternative approach (easier to calculate the measure of a complicated $A\in \F$) using the iterated integrals.
+We can define this product measure starting with the "rectangle" $A_1 \cdot A_2$ above then extending it using the Carathéodory's machinery.But since we have no idea what result measure we want, However, Fubini's theorem suggest an alternative approach (easier to calculate the measure of a complicated $A\in \F$) using the iterated integrals.
 \newpage
 \textbf{Setup:} Assume $\mu_i$ are finite measure no $(\Omega_i, \F_i), i=1,2$. Let $f: (\Omega, \F) \mapsto (\R, \B)$ be bounded and measurable and $\mu_i(\Omega_i) < \infty$
 \begin{dfn}
@@ -398,16 +397,7 @@ The functions
 \end{cases}
 \end{align*}
 \end{lem}
-\pf Let $\M$ be the class of bounded measurable functions for (**) holds. Then 
-\begin{ex}Preparation work for Monotone Class theorem
-\begin{enumerate} 
-    \item $\M$ is a vector space over $\R$
-    \item $\I_\Omega \in \M$
-    \item If $(f_n)\in \M$ satisfy $0 < f_n \leq c < \infty$ and $f_n \uparrow$ then $\biglim{n} f_n \in \M$
-    \item $\M$ contains $\I_A$ for $A = A_1 \cdot A_2 \in \tau$
-\end{enumerate}
-\end{ex}
-By Monotone Class theorem \ref{Monotonclass}: Every bounded $\F$-measurable function is inside $\M$
+The proof is on next page
 \begin{rem}We can extend above result to more general case ($\sigma$-finite)
 \begin{enumerate}
     \item By replacing (i) in the above lemma by \\
@@ -419,17 +409,49 @@ By Monotone Class theorem \ref{Monotonclass}: Every bounded $\F$-measurable func
     \end{equation*}
 \end{enumerate}
 \end{rem}
+\newpage
+\pf Let $\M$ be the class of bounded measurable functions for (**) holds. $\M$ is a monotone class:
+\begin{enumerate} 
+    \item $\M$ is a vector space over $\R$ \\
+    If $f,g\in \M, a,b\in \R$ 
+    \begin{enumerate}
+        \item For $i=1,2$ let's say $i=1$(The other is symmetric), $I_1(\omega_1, af+bg) := \int_{\Omega_2} af+bg(\omega_1, \omega_2) \diff \mu_2 (\omega_2) = a\int_{\Omega_2} f(\omega_1, \omega_2) \diff \mu_2 (\omega_2)+b\int_{\Omega_2} g(\omega_1, \omega_2) \diff \mu_2 (\omega_2)$ This is linear combinations of bounded and measurable functions which is again measurable and bounded.
+        \item \begin{align*}
+            \int_{\Omega_1} I_1(\cdot, af+bg) \diff \mu_1 &= a\int_{\Omega_1} I_1(\cdot, f) \diff \mu_1 + b\int_{\Omega_1} I_1(\cdot, g) \diff \mu_1 \\
+            &= a\int_{\Omega_2} I_2(\cdot, f) \diff \mu_2+b\int_{\Omega_2} I_2(\cdot, g) \diff \mu_2 = \int_{\Omega_2} I_2(\cdot, af+bg) \diff \mu_2
+        \end{align*}
+    \end{enumerate}then we have $af+bg \in \M$ 
+    \item $\I_\Omega \in \M$ \\
+    $I_1(\omega_1, \I_\Omega) = \int_{\Omega_2} \I_\Omega(\omega_1, \omega_2) \diff \mu_2 (\omega_2) = \mu_2 (\Omega_2) < \infty$ Which is bounded and also measurable, true for $i=1,2$, \\
+    $\int_{\Omega_1} I_1(\cdot, f) \diff \mu_1 = \int_{\Omega_1} \mu_2(\Omega_2) \diff \mu_1 =\mu_1{\Omega_1} \mu_2(\Omega_2) =\int_{\Omega_2} I_2(\cdot, f) \diff \mu_2$ also, it is bounded since both measure are finite.
+    \item If $(f_n)\in \M$ satisfy $0 < f_n \leq c < \infty$ and $f_n \uparrow$ then $\biglim{n} f_n \in \M$ \\
+     (i)$I_1(\omega_1, f) = \int_{\Omega_2} \biglim{n}f_n(\omega_1, \omega_2) \diff \mu_2 \stackrel{\text{MCT}}{=}  \biglim{n}\int_{\Omega_2} f_n(\omega_1, \omega_2) \diff \mu_2 \leq c \mu_2 (\Omega_2) < \infty$ limit of measurable function is measurable, true for $i=1,2$
+\begin{align*}
+    (ii) \qquad \int_{\Omega_1} I_1(\cdot, f) \diff \mu_1 &= \int_{\Omega_1}\int_{\Omega_2} f(\omega_1, \omega_2)\diff \mu_2 \diff \mu_1 \\
+    &\stackrel{\text{MCT}}{=}\int_{\Omega_1}\biglim{n}\int_{\Omega_2} f_n(\omega_1, \omega_2)\diff \mu_2 \diff \mu_1 \stackrel{\text{MCT}}{=}\biglim{n}\int_{\Omega_1}\int_{\Omega_2} f_n(\omega_1, \omega_2)\diff \mu_2 \diff \mu_1 \\
+    &\stackrel{\text{Fubini}}{=}\biglim{n}\int_{\Omega_2}\int_{\Omega_1} f_n(\omega_1, \omega_2)\diff \mu_1 \diff \mu_2 \\
+    &\stackrel{\text{Reverse MCT}}{=} \int_{\Omega_2} I_2(\cdot, f)\diff \mu_2
+\end{align*}
+\end{enumerate}
+Consider $\tau = \{A_1 \times A_2, A_i\in \F_i\}$ which is a $\pi$-system. 
+\begin{enumerate}
+    \item[(i)] $I_1(\omega_1, f) = \int_{\Omega_2} \I_A(\omega_1, \omega_2) \diff \mu_2$,Now $\omega_1$ is fixed, the indicator function is either 0 or 1, $\int_{\Omega_2} \I_A(\omega_1, \omega_2) \diff \mu_2 \leq \mu_2 (\Omega_2) < \infty$ which is measurable and bounded, true for $i=1,2$
+    \item[(ii)] $\int_{\Omega_1} I_1(\cdot, \I_A) \diff \mu_1 = \int_{\Omega_1}\int_{\Omega_2} \I_A(\omega_1, \omega_2)\diff \mu_2 \diff \mu_1 = \int_{\Omega_2}\int_{\Omega_1} \I_A(\omega_1, \omega_2)\diff \mu_1 \diff \mu_2 = \int_{\Omega_2} I_2(\cdot, \I_A)$ by symmetry. 
+\end{enumerate}
+$\M$ contains $\I_A$ for $A = A_1 \times A_2 \in \tau$
+By Monotone Class theorem \ref{Monotonclass}: Every bounded $\F$-measurable functions is inside $\M$
+
 
 \newpage
 \subsection*{product measure}
 Given $(\Omega_i, \F_i, \mu_i)$ with $\mu_i$ finite measures for $i=1,2$ we define $\mu: \F \mapsto \R^+$ as 
 \begin{equation*}
-    \bigoplus \quad \mu(A) := \int_{\Omega_1} I_1(\cdot, \I_A) \diff \mu_1 = \int_{\Omega_2} I_2(\cdot, \I_A) \diff \mu_2
+    \bigoplus \quad \mu(A) := \int_{\Omega_1} I_1(\cdot, \I_A) \diff \mu_1 \stackrel{\text{Fubini}}{=} \int_{\Omega_2} I_2(\cdot, \I_A) \diff \mu_2
 \end{equation*}
 \begin{prop} After we define the product measure
 \begin{enumerate}
     \item $\mu$ is a measure on $(\Omega, \F)$ called the product measure
-    \item $\mu(A_1 \cdot A_2) = \mu_1(A_1)\cdot \mu_2(A_2), \forall A_i \in \F_i$
+    \item $\mu(A_1 \times A_2) = \mu_1(A_1)\cdot \mu_2(A_2), \forall A_i \in \F_i$
     \item If $\nu$ is another measure on $(\Omega, \F)$ with $\nu(A_1 \cdot A_2) =\mu(A_1 \cdot A_2) = \mu_1(A_1)\cdot \mu_2(A_2), \forall A_i \in \F_i$ then $\mu = \nu$
 \end{enumerate}
 \end{prop}
@@ -440,18 +462,19 @@ The identity $\bigoplus$ as well as the notion of the product measure can be ext
 \end{rem}
 \begin{cor}[Lebesgue measure on $\R^2$]There exists a unique measure $\lambda_2$ on $(\R^2, \B(\R^2))$ s.t. for any intervals $I_i: (a_i, b_i]$ we have
 \begin{equation*}
-    \lambda_2(I_1 \cdot I_2) = \lambda(I_1)\lambda(I_2) = (b_1 - a_1)(b_2 - a_2)
+    \lambda_2(I_1 \times I_2) = \lambda(I_1)\lambda(I_2) = (b_1 - a_1)(b_2 - a_2)
 \end{equation*}
 \end{cor}
 
-\begin{thm}
+\begin{thm}[Fubini's Theorem]
+\label{Fubini}
 Let $\mu$ be the product measure on $(\Omega, \F)$ of $(\Omega_i, \F_i, \mu_i)$ with $\mu_i$ are $\sigma$-finite measures for $i=1,2$
 \begin{enumerate}
     \item If $f$ is non-negative measurable functions of $(\Omega, \F)$ then 
     \begin{equation*}
         \bigotimes \quad \int f \diff\mu := \int_{\Omega_1} I_1(\cdot, f) \diff \mu_1 = \int_{\Omega_2} I_2(\cdot, f) \diff \mu_2 
     \end{equation*}
-    \item $f\in \ls{1}(\Omega)\Longleftrightarrow \I_1(\cdot, \abs{f})\in \ls{1}(\Omega_1) \Longleftrightarrow \I_2(\cdot, \abs{f})\in \ls{1}(\Omega_2)$ and then $\bigotimes$ holds
+    \item $f\in \ls{1}(\Omega)\Longleftrightarrow I_1(\cdot, \abs{f})\in \ls{1}(\Omega_1) \Longleftrightarrow I_2(\cdot, \abs{f})\in \ls{1}(\Omega_2)$ and then $\bigotimes$ holds
 \end{enumerate}
 \end{thm}
 \pf  Exercise, again :)
