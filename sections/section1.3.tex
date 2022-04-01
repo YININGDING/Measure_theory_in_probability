@@ -1,0 +1,194 @@
+% !TEX root = ../mat999.tex
+\newpage
+\section{Construction of Lebesgue measure on real number}
+\textcolor{blue}{Non trivial question, How one can define "measurable set" on $\mathbf{R}$ that satisfy the condition of measure} \\
+\textbf{Def.} A family $\mathcal{F}_0$ of subsets of $2^\Omega$ is said to be algebra/field on if:
+\begin{itemize}
+    \item[A.1] $\Omega \in \mathcal{F}_0$
+    \item[A.2] $A\in \mathcal{F}_0 \Rightarrow A^c \in \mathcal{F}_0$
+    \item[A.3] $A_1,A_2,... A_n\in \mathcal{F}_0 \Rightarrow \bigcup\limits_{k=1}^{n}A_k\in \mathcal{F}_0$  \quad\quad  (Finite additivity)
+\end{itemize}
+\textbf{Def:} Let $(\Omega, \mathcal{F}_0)$ be a measurable space, A set function $\mu: \mathcal{F}_0 \mapsto [0, +\infty)$ is a (pre)measure on $(\Omega, \mathcal{F}_0)$ if:
+\begin{enumerate}
+    \item $\mu(\emptyset) = 0$
+    \item if $(A_n)_{n=1}^{\infty} \in \mathcal{F}_0$ are disjoint  and $\bigcup\limits_{n \geq 1} A_n \in \mathcal{F}_0$ then
+    \begin{equation*}
+        \mu(\bigcup\limits_{n=1}^{\infty}A_n) = \sum\limits_{n=1}^{\infty}\mu(A_n)
+    \end{equation*}
+    Note: the difference between "real" measure is that we require an infinite sequence. And the problem is does $\bigcup\limits_{n=1}^{\infty}A_n \in \F_0$ at all?
+\end{enumerate}
+\begin{ex}
+Show that such sequence (if $(A_n)_{n=1}^{\infty} \in \mathcal{F}_0$ are disjoint  and $\bigcup\limits_{n \geq 1} A_n \in \mathcal{F}_0$)  can exist: 
+\end{ex}
+\newpage
+Now, let's consider an algebra but not $\sigma$-algebra and define a measure (Lebesgue measure) on it, then we will use Caratheodory's extension theorem to establish Lebesgue measure on $\sigma$-algebra \\[1cm]
+\textbf{Def. $\mathcal{B}_0$} : an algebra on $\Omega = (0,1]$ as defined below
+\begin{equation*}
+    \mathcal{B}_0:= \{\bigcup\limits_{i=1}^n (a_i, b_i]: 0\leq a_i < b_i \leq 1, n\in \mathbb{N} \}
+\end{equation*}
+\textbf{Def. Legesgue's measure}  \\
+let $A \in \mathcal{B}_0 \Rightarrow A = \bigcup\limits_{i = 1}^n (a_i, b_i]$ WLOG, $(a_i, b_i]$ are disjoint sets which is disconnected ($a_i > b_{i-1}$)
+\begin{equation*}
+    \lambda(A) := \sum\limits_{i=1}^n (b_i-a_i)
+\end{equation*} which is the sum of total length of interval \\
+Next, WTS \begin{enumerate}
+    \item $\mathcal{B}_0$ is an algebra but not $\sigma$-algebra
+    \item $\lambda$ is a (pre)measure on $\mathcal{B}_0$
+\end{enumerate}
+\newpage
+\begin{thm}[Carathodory's Extension theorem]\label{Cara}
+if $\mu$ is a $\sigma$-finite (pre)measure on an algebra $\mathcal{F}_0$, then $\mu$ has a unique extension to a measure on $\sigma(\mathcal{F}_0)$
+\end{thm}
+\begin{cor}[The Lebesgue measure on $((0,1), \mathcal{B}(0,1))$ is well defined]
+Note: $\sigma(\mathcal{B}_0) = \mathcal{B}(0,1))$
+\end{cor}
+\textbf{Construction of the extension: } \\
+\begin{dfn}[outer measure] A map $\mu^*: P(X)\mapsto [0,+\infty]$ with following property:
+\begin{enumerate}
+    \item $\mu^*(\emptyset) = 0$
+    \item $\mu^*$ is monotonic: $A\subset B\Rightarrow \mu^*(A)\leq \mu^*(B) $
+    \item countably sub-additive 
+    \begin{equation*}
+        \mu^*(\bigcup\limits_{n}A_n) \leq \sum\limits_n \mu^*(A_n)
+    \end{equation*}
+\end{enumerate}
+\end{dfn}
+\textcolor{blue}{Natural question: How to "build" a measure out of outer measure?} \\
+Notice: Power set won't work, we have to construct a $\sigma$-algebra out of it, sub-additivity won't work, we have to make equality holds. \\
+\begin{dfn}
+A set $A\in P(\Omega)$ is called $\mu^*$-measurable if 
+\begin{equation*}
+    \mu^*(A\cap E) + \mu^*(A^c \cap E) = \mu^*(E) \quad \text{for every set E}
+\end{equation*}
+\end{dfn}
+
+\begin{rem}
+By sub-additivity of $\mu^*$ we have 
+\begin{equation*}
+    \mu^*(E) \leq \mu^*(A\cap E) + \mu^*(A^c \cap E)   \quad \text{for every set E}
+\end{equation*} Hence A is $\mu^*$-measurable iff
+\begin{equation*}
+    \mu^*(A\cap E) + \mu^*(A^c \cap E) \leq \mu^*(E) \quad \text{for every set E}
+\end{equation*}
+\end{rem}
+if $\nu$ is a measure on $(\Omega, \mathcal{F})$ with $\mathcal{F}_0 \subset \mathcal{F}$ which agrees with $\mu$ on $\mathcal{F}_0$, then for $A\subset\mathcal{F}$ with $A\subset \bigcup\limits_{n}A_n$, $A_n \subset \F_0$ we have the following: 
+\begin{equation*}
+    \nu(A) \leq \sum\limits_{n \geq 1} \nu(A_n) = \sum\limits_{n \geq 1} \mu(A_n) \Rightarrow \nu(A) \leq \mu^*(A)
+\end{equation*}
+\textbf{Hence $\mu^*$ is an upper bound}
+\newpage
+Now let's put things up, we have $\B_0$ : an algebra on $\Omega = (0,1]$ as defined below
+\begin{equation*}
+    \mathcal{B}_0:= \{\bigcup\limits_{i=1}^n (a_i, b_i]: 0\leq a_i < b_i \leq 1, n\in \mathbb{N} \}
+\end{equation*}
+And Lebesgue measure (premeasure) on $\B_0$. \\[1cm]
+For each subset $A \in P(\Omega)$, define its outer measure by
+\begin{equation*}
+    \mu^*(A) := inf\{\sum\limits_{n} \mu(A_n)|A_n \in \B_0 \quad \forall n, A\subset \bigcup\limits_{n}A_n\}
+\end{equation*}
+We denote by $\M$ a class of all $\mu^*$-measurable sets. \\[1cm]
+Idea: We are estimating all subsets of power set by the information we have (premeasure on algebra) from outside. \\
+Then we have to make outer measure a real measure, so we have to find a subset of power set to form $\sigma$-algebra and establish a measure on it. That is:
+\textcolor{blue}{WTS: $\M$ is sigma algebra that contains $\B_0$ and the "real" measure $\mu$ on $\M$ agrees with $\mu^*$, this two will be sufficient}
+\newpage
+\subsection{Existence}
+\begin{lem}[The class $\M$ is a field]
+\end{lem}
+
+\begin{lem}[If $A_1, A_2, ...$ are disjoint $\M$ sets, then for each $E\subset \Omega$]
+\begin{equation*}
+    \mu^*(E \cap(\bigcup A_k)) = \sum\limits_{k} \mu^*(E\cap A_k)
+\end{equation*}
+\end{lem}
+
+\begin{lem}[The class $\M$ is a $\sigma$-algebra, and $\mu^*$ restricted to $\M$ (denote by $\mu$) is countably additive]
+\end{lem}
+
+\begin{lem}[$\B_0\subset \M$]
+\end{lem}
+
+\begin{lem}[$A \in \B_0$ then $\mu(A) = \mu^*(A)$]
+\end{lem}
+\pf
+\newpage
+\subsection{Uniqueness}
+\subsubsection*{$\pi-system$ and $\lambda-system$}
+\begin{dfn}[$\pi-system$] For a collection of sets $\mathcal{P}$ if$A, B\in \mathcal{P} \Rightarrow A\cap B \in \mathcal{P}$ \\
+(closed under finite intersections)
+\end{dfn}
+\begin{dfn}[$\lambda-system$]For a collection of sets $\lambda$ if
+\begin{enumerate}
+    \item[($\lambda1$)] $\Omega \in \mathcal{L}$
+    \item[($\lambda2$)] if $A,B\in \mathcal{L}, A\subset B \Rightarrow B\setminus A\in \mathcal{L}$
+    \item[($\lambda3$)] if $A_n \in \mathcal{L} \text{ and } A_n \uparrow A \Rightarrow A\in \mathcal{L}$ 
+\end{enumerate}
+\end{dfn}
+\begin{ex}
+Show that $\mathcal{L}$ is $\lambda-system$ if
+\begin{enumerate}
+    \item[($\lambda1$)] $\Omega \in \mathcal{L}$
+    \item[($\lambda2'$)] $A\in \mathcal{L} \Rightarrow A^c \in \mathcal{L}$
+    \item[($\lambda3'$)] $A_1, A_2, ... \in \mathcal{L} \quad \textcolor{red}{disjoint } \Rightarrow \bigcup\limits_{n=1}^\infty A_n \in \mathcal{L}$
+\end{enumerate}
+\end{ex} \textbf{Note: The definition is different from sigma algebra and}
+\begin{equation*}
+    (\lambda1)(\lambda2)(\lambda3) \Longleftrightarrow (\lambda1)(\lambda2')(\lambda3')
+\end{equation*}
+\begin{ex}
+Intersection of $\lambda-system$ is again $\lambda-system$
+\end{ex}
+\begin{ex}$\lambda-system$ that is not $\sigma-algebra$
+\end{ex}
+\begin{ex}[Important exercise]
+Show that $\F \subset 2^{\Omega}$ is a $\sigma$-algebra iff $\F$ is both $\pi-system$ and $\lambda-system$
+\end{ex}
+\newpage
+\begin{thm}[Dynkin's $\pi-\lambda$ Theorem]\label{Dynkin} if $\mathcal{P}$ is a $\pi-system$ and $\mathcal{L}$ is a $\lambda-system$, then 
+\begin{equation*}
+    \setp \subset \setl \Rightarrow \sigma(\setp) \subset \setl
+\end{equation*}
+\end{thm}
+\pf
+\newpage
+\begin{thm}
+Suppose $\mathbb{P}_1$ and $\mathbb{P}_2$ are probability measure (or any other finite measure) on $\sigma(\mathcal{P})$ where $\mathcal{P}$ is a $\pi-system$, if $\mathbb{P}_1$ and $\mathbb{P}_2$ agree on $\mathcal{P}$, then they agree on $\sigma(\mathcal{P})$
+\end{thm}
+\pf
+\vspace{10cm}
+This can be generalized to any other finite measure
+\begin{ex}\label{Unique}
+Let $\mathcal{P}$ be $\pi-system$, if $\mu$ and $\nu$ are measure on $\sigma(\mathcal{P})$ that agree on $\mathcal{P}$ and there is a sequence $A_n \in \mathcal{P}$ with $A_n\uparrow \Omega$ and $\mu(A_n), \nu(A_n) <\infty $ then $\mu$ and $\nu$ agree on $\sigma(\mathcal{P})$
+\end{ex}
+\vfill
+\textbf{Note: }This complete the uniqueness of Theorem \ref{Cara}, for $\sigma$-finite measure on an algebra $\F_0$,if there are two extension (measures) on $\sigma(\F_0)$ that agrees on $\F_0$ then they agree on $\sigma(\F_0)$ by Exercise\ref{Unique} which makes extension unique. This complete the proof of existence and uniqueness of Caratheodory's extension theorem \qed
+\newpage
+\begin{ex}
+Show that Lebesgue measure is translation invariant by \ref{Dynkin} Dynkin's theorem
+\end{ex}
+\vspace{10cm}
+\begin{thm}[Stieltjes measure]Suppose $F: \R \mapsto \R$ is a non-decreasing and right continuous ($F(x) = \lim\limits_{X_n\downarrow x}F(x_n)$), Then there exists a unique measure $\mu$ on $(\R, \B)$ with $\mu((a,b]) = F(b) - F(a)$ 
+\end{thm}
+\textbf{Remark: } Choose $F(x) = x$ then we get Lebesgue measure.
+\begin{example}
+Non-decreasing and right continuous are both important
+\end{example}
+\newpage
+\subsubsection*{Completion of a measure space}
+\begin{dfn}
+A measure space $(\Omega, \F, \mu)$ is complete if $A\subset B, B\in \F$ and $\mu(B) = 0 \Rightarrow A\in \F$, (Hence $\mu(A) = 0$ by monotonicity)
+\end{dfn}
+\begin{ex} if $(\Omega, \F, \mu)$ is complete, then $A\in \F, A\triangle A' \subset B\in \F$ with $\mu(B) = 0 \Rightarrow A'\in \F $ and $\mu(A) = \mu(A')$ 
+\end{ex}
+\vspace{5cm}
+\begin{example}
+$(\Omega, \M, \mu^*)$ is a complete measure space
+\end{example}
+\vspace{10cm}
+\begin{thm}
+if $(\Omega, \F, \mu)$ is a measure space, then there is a complete measure space $(\Omega, \bar{\F}, \bar{\mu})$ called the completion of $(\Omega, \F, \mu)$ s.t.
+\begin{enumerate}
+    \item $E\in \bar{\F} \Longleftrightarrow E = A \cup B$, where $A\in \F$ and $B \subset N \subset \F, \quad \mu(N) = 0$
+    \item $\bar{\mu}|_{\F} = \mu$
+\end{enumerate}
+\end{thm}
+Note: The completion is unique

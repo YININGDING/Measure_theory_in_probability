@@ -1,0 +1,278 @@
+% !TEX root = ../mat999.tex
+\newpage
+\section{Random variables and distribution}
+\begin{dfn}
+A mapping $X: \Omega \mapsto \R$ is a random variable if it is a measurable function of $(\Omega, \F) \mapsto (\R, \B)$
+\end{dfn}
+\subsection{Dsitrbution function}
+\begin{dfn}
+If X is a RV then it induces a Probability measure on $(\R, \B)$, called its distribution: 
+\begin{equation*}
+    \mu(A)=  \mathbb{P}(X\in A), \forall A\in \B
+\end{equation*}
+\end{dfn}
+We typically describe the distribution of X through distribution function (CDF):
+\begin{equation*}
+    F_X = \mathbb{P}(X \in (-\infty, t]) \quad t\in \R
+\end{equation*}
+\begin{prop}
+$F$ is a CDf iff:
+\begin{enumerate}
+    \item F is non decreasing
+    \item $\lim\limits_{t\to \infty} F(t) = 1,\lim\limits_{t\to -\infty} F(t) = 0,$
+    \item F is right continuous, $\forall a\in R, \lim\limits_{t\downarrow a}F(t) = F(a)$
+\end{enumerate}
+\end{prop}
+
+\begin{example}
+Let U has uniform distribution on $[0,1]$, i.e.
+\begin{equation*}
+    F_u(t) =  \begin{cases}
+    t,\quad t\in [0,1] \\
+    0, \quad t < 0 \\
+    1, \quad t>1
+    \end{cases}
+\end{equation*}
+\end{example}
+Let F be a function satisfy (1)(2)(3)
+\begin{dfn}[quantile function]
+\begin{equation*}
+    G(u) :=inf\{t|F(t) \geq u\}, \quad u\in (0,1)
+\end{equation*}G is generalised inverse of F
+\end{dfn}
+G is non-decreasing, left-continuous and $\{u| G(u)\leq t\} = \{u| F(t)\geq u\}$ \\
+Note G is measurable (Non decreasing function is always measurable), so $Y = G: (0,1) \mapsto \R$ is a RV with DF $F_Y$ satisfying:
+\begin{equation*}
+    F_Y(y) = \mathbb{P}(Y\leq y) = \mathbb{P}(\{u| G(u)\leq y\}) = \mathbb{P}(\{u| F(y)\geq u\}) = F(y)
+\end{equation*}
+$U \sim U[0,1], X:= Q(U) \sim F$ \\
+\pf $\prob(X\leq t) = \prob(Q(U) \leq t) = \prob(U \leq F(t)) = F(t)$ \\
+NB: If $F$ is continuous and $X \sim F$, then also $F(X) \sim U[0,1]$
+\newpage
+\subsection{Independency}
+Recall: Events $A_1, A_2,...,A_n$ are independent if for any k distinct indices. Note: This could also be defined as indicator function of events which is consistent with next definition
+\begin{equation*}
+    \mathbb{P}(A_{i_1} \cap... \cap A_{i_k}) = \prod\limits_{j = 1}^{k} \mathbb{P}(A_{i_j})\quad 1\leq i_1 < i_2 < ... < i_k \leq n
+\end{equation*}
+\begin{dfn}
+The RV's, $X_1, ...,X_n$ are independent if for any $B_i \in \B, i=1,...,n$
+\begin{equation*}
+    \mathbb{P}(X_1\in B_1,X_2\in B_2, ...,X_n\in B_n) = \prod\limits_{i = 1}^{n} \mathbb{P}(X_i\in B_i)
+\end{equation*}
+\end{dfn}
+\begin{ex}
+Consider following DF
+\begin{enumerate}
+    \item Let $X_1, ...,X_n$ be independent RV's, what is the CDF of $Y = max\{X_1, ...,X_n\}$\\
+    ($F_Y = f(F_1, ..., F_n)$, where $F_i$ is CDF of $X_i$)
+    \item CDF of $Z = min\{X_1, ...,X_n\}$
+    \item Take $X_i \sim Unif([0,1])$
+\end{enumerate}
+\end{ex}
+\begin{enumerate}
+    \item \begin{align*}
+        F_Y(y) &= \prob(Y\leq y) = \prob(max\{X_1, ...,X_n\} \leq y) \\
+        &= \prob(X_1 \leq y, X_2 \leq y, ...X_n \leq y) = \bigp{i=1}^n \prob(X_i \leq y) = \bigp{i=1}^n F_i(y)
+    \end{align*}
+    \item Consider tail distribution.
+    \begin{align*}
+        1-F_Z(z) &= \prob(Z\geq z) = \prob(min\{X_1, ...,X_n\} \geq z) \\
+        &= \prob(X_1 \geq z, X_2 \geq z, ...X_n \geq z) = \bigp{i=1}^n \prob(X_i \geq z) = \bigp{i=1}^n (1-F_i(z)) \\
+        F_Z(z) &= 1-\bigp{i=1}^n (1-F_i(z))
+    \end{align*}
+    \item Take $X_i \sim Unif([0,1])$, \\
+    $F_Y(y)= \bigp{i=1}^n F_i(y) = y^n$ if $y \in [0,1]$ \\
+    $F_Z(z)= 1-\bigp{i=1}^n (1-F_i(z)) = 1-(1-z)^n$ if $z \in [0,1]$
+
+\end{enumerate}
+\newpage
+Let $(\Omega, \F, \mathbb{P})$ be a probability space a set $g \subset 2^{\Omega} $ is sub-$\sigma$-algebra of $\F$ if $g$ is a $\sigma$-algebra and $g\in \F$
+\begin{dfn}
+The sub-$\sigma$-algebra $g_1, ..., g_n$ are independent if whenever $A_i \in g_i, i = 1,2,..., n$ we have
+\begin{equation*}
+    \mathbb{P}(\bigcap\limits_{i=1}^n A_i) = \prod\limits_{i=1}^n \mathbb{P}(A_i)
+\end{equation*}
+\end{dfn}
+\begin{ex}
+Show that TFAE
+\begin{enumerate}
+    \item If $A_1, ..., A_n$ are independent events then so are $A_1^c, ...,A_n^c$
+    \item Apply 1 to conclude that $A_1, ..., A_n$ are independent iff $B_1, ..., B_n$ are independent, where for each i, $B_i = A_i$ or $B_i = A_i^c$
+    \item For $A_1, ..., A_n \in \F$
+    \begin{enumerate}
+        \item $A_i$ are independent events
+        \item The indicator function $\I_{A_i}$ are independent RV's
+        \item $g_i = \{\emptyset, \Omega, A_i, A_i^c\}$, and $g_i$ are independent $\sigma$-algebra
+        \item The RVs $X_1, ..., X_n$ are independent iff $g_i = \sigma(X_i)$ are independent
+        \item If $g_1, ..., g_n$ are independent $\sigma$-algebra and if $X_i$ is $g_i$ measurable then $X_1, ..., X_n$ are independent RVs
+    \end{enumerate}
+\end{enumerate}
+\end{ex}
+\textbf{These examples connects independent of RVs with independent of sigma algebras}
+\vfill
+\textbf{Extension}
+Let us extend the notion of independence to sets of events $\A_1, ..., \A_n$ where for each i, $\A_i \subset \F$ and $\Omega \in \A_i$ \\
+\begin{dfn}
+$\A_i$ are independent if for any choice of $A_i\in \A_i, i =1,...,n$
+\begin{equation*}
+    \mathbb{P}(\bigcap\limits_{i=1}^n A_i) = \prod\limits_{i=1}^n \mathbb{P}(A_i)
+\end{equation*}
+\end{dfn}
+\begin{ex}
+$\A_1, ..., \A_n$ are independent $\Longleftrightarrow$ whenever $A_i\in \A_i, i = 1,...,n, A_i$ are independent 
+\end{ex}
+\newpage
+The following is the key lemma which allows us to check independence only on "generator"
+\begin{lem}
+Suppose that for $i = 1,...,n, \A_i\subset \F$ satisfy
+\begin{enumerate}
+    \item $\Omega \in \A_i$
+    \item $\A_i$ is a $\pi$-system (closed under intersection)
+    \item $\A_1, ..., \A_n$ are independent
+\end{enumerate}
+Then $\sigma(\A_1), \A_2, ..., \A_n$ are independent
+\end{lem}
+\pf (Using $\pi-\lambda$ theorem of Dynkin's) \\
+For $A_i \in \A_i, i=2,3,...,n$ define the set function $\mu$ and $\nu: \sigma(\A_1) \mapsto [0,1]$ by
+\begin{align*}
+    \mu(A) &:= \prob(A \cap A_2 \cap ... \cap A_n) \\
+    \nu(A) &:= \prob(A)\prob(A_2)...\prob(A_n)
+\end{align*} $\mu$ and $\nu$ are measures on $\sigma(\A_1)$
+\begin{enumerate}
+    \item $\mu(\emptyset) = \prob(\emptyset) = 0, \nu(\emptyset) = \prob(\emptyset)\prob(A_2)...\prob(A_n) = 0$
+    \item countable additivity is easy to get since $\prob$ is countably additive.
+\end{enumerate}
+Let $\setl = \{A\in \sigma(\A_1)| \mu(A) = \nu(A)$ Then $\setl$ is a $\lambda$-system.
+\begin{enumerate}
+    \item $\Omega \in \setl$ since $A_1, ..., A_n$ are independent.
+    \item $A,B\in \setl$ and $A\subset B$ \\
+    $\mu(B\setminus A) = \mu(B) - \mu(A) = \nu(B) - \nu(A) = \nu(B\setminus A) \Rightarrow (B\setminus A\in \setl)$
+    \item $B_1, B_2, ... \in \setl$ and $B_n \uparrow B \Rightarrow C_n := B_n \setminus B_{n-1}, C_0 := \emptyset$ \\
+    Note they are disjoint and $\bigu{n}C_n = \bigu{n}B_n$, the $\setl$ is closed under set minus $C_n\in \setl$
+    \begin{equation*}
+        \mu(B) = \mu(\bigu{n}B_n) = \mu(\bigu{n}C_n) =\bigs{n}\mu(C_n)= \bigs{n}\nu(C_n)=\nu(\bigu{n}C_n) = \nu(\bigu{n}B_n) = \nu(B) \Rightarrow B \in \setl
+    \end{equation*}
+\end{enumerate}
+Here $\A_1$ is a $\pi$-system s.t. $\mu(A) = \nu(A)$ on $\A_1$ which is subset of $\setl$, Then by Dynkin's Theorem \ref{Dynkin}, $\sigma(\A_1) \subset \setl$. Also $\setl \subset \sigma(\A_1) \Rightarrow \setl = \sigma(\A_1)$, Hence $\sigma(\A_1), \A_2, ..., \A_n$ are independent \qed \\[0.5cm]
+\textbf{Note: we only need $\A_1$ to be $\pi$-system, the rest is for induction step in Corollary\ref{Cor1}}
+\newpage
+\begin{cor}\label{Cor1}
+Under the same conditions of the Lemma we have $\sigma(\A_1), \sigma(\A_2), ..., \sigma(\A_n)$ are independent
+\end{cor}
+\pf We apply the lemma n times which shifts the indices, the first 2 steps goes like this: \\
+Apply the lemma once, we have $\sigma(\A_1), \A_2, ..., \A_n$ are independent, \\
+then consider the set $\sigma(\A_1), \A_2, ..., \A_n$ instead of $\A_1, \A_2, ..., \A_n$, \\
+now put $A_2$ at the front, now $\sigma(\A_i) \subset \F$ and $\sigma(\A_i)$ is a $\pi$-system, \\
+now we have $\sigma(\A_1), \sigma(\A_2), \A_3, ..., \A_n$ are independent, continue the process we will have the lemma \qed
+\begin{cor}
+The RV's $X_1, ..., X_n$ are independent iff
+\begin{equation*}
+    \mathbb{P}(\bigcap\limits_{i=1}^n \{X_i \leq x_i\}) = \prod\limits_{i=1}^n \mathbb{P}(X_i \leq x_i), \quad \forall x_i \in \bar{\R}
+\end{equation*}
+\end{cor}
+\pf The set $\A_i = \{\{\omega| X_i(\omega)\leq x\}|x\in \bar{\R}\}$ are $\pi$-system, $\A_i\subset \F, \Omega \in \A_i$ and $\sigma(\A_i) = \sigma(X_i) \Rightarrow X_1,...,X_n$ are independent by exercise (Since $\sigma(\A_i),...,\sigma(\A_n)$ are independent by Corollary \ref{Cor1} \qed 
+\newpage
+We may extend the definition of independence to infinite sequence of events, RV's on $\sigma$-algebra
+\begin{dfn}
+Sequence of events $A_1, A_2,...$ is independent if for every $n\in \N$ events $A_1, ..., A_n$ are independent.
+\end{dfn}
+Analogous definition holds for RVs and $\sigma$-algebras.
+\begin{example}(Infinite sequence of independent events)
+Let $(\Omega, \F, \mathbb{P}) = ((0,1], \B((0,1]), \lambda)$ which each $\omega\in (0,1]$ associated its (non-terminating) dyadic expansion
+\begin{equation*}
+    \omega = \sum\limits_{n=1}^\infty \frac{d_n(\omega)}{2^n} = 0.d_1(\omega)d_2(\omega)...
+\end{equation*}Thus each $d_n(\omega)$ is 0 or 1, and $(d_1(\omega),d_2(\omega),...)$ is a sequence of binary digits in the expansion of $\omega$ \\
+Let $A_n = \{\omega\in (0,1]| d_n(\omega)=0\}, n = 1,2,...$\\
+Then $\mathbb{P}(A_n) = \frac{1}{2}$, Obviously, they are all independent for any number n, explicitly:
+\begin{equation*}
+    \mathbb{P}(A_1 \cap A_2 \cap ...\cap A_n) =\frac{1}{2^n} = \mathbb{P}(A_1)\mathbb{P}(A_2)...\mathbb{P}(A_n) 
+\end{equation*}
+\end{example}
+\begin{lem}[The second Borel-Cantelli lemma]\label{BCL2}
+recall The first Borel-Cantelli lemma \ref{BCL1}: \\
+Let $(A_n)$ be a sequence of events s.t.
+\begin{equation*}
+    \sum\limits_{n} \mathbb{P}(A_n) < \infty \Rightarrow \mathbb{P}(\lsup{n} A_n) = 0
+\end{equation*}
+Let $A_n$ be a sequence of independent events s.t. 
+\begin{equation*}
+    \sum\limits_{n} \mathbb{P}(A_n) = \infty \Rightarrow \mathbb{P}(\lsup{n} A_n) = 1
+\end{equation*}
+\end{lem}
+\pf Let $p_n := \mathbb{P}(A_n)$ then $\mathbb{P}(\bigcap\limits_{n=m}^N A_n^c) \xrightarrow{independency} \prod\limits_{n=m}^N (1-p_n) \leq \prod\limits_{n=m}^N e^{-p_n} = e^{-\sum\limits_{n=m}^N p_n} \xrightarrow{N \rightarrow \infty} 0 $ \\
+\textbf{Note: $1-x \leq e^{-x}, \forall x\geq 0$} \\
+$\mathbb{P}(\bigcap\limits_{n=m}^N A_n^c) \xrightarrow{N \rightarrow \infty} 0$ Hence, 
+\begin{align*}
+    \prob((\lsup{n}A_n)^c) &= \prob((\bigi{m=1}^\infty \bigu{n=m}^\infty A_n)^c) \\
+    \text{By De Morgan's law }&= \prob((\bigu{m=1}^\infty \bigi{n=m}^\infty A_n^c)) \leq \bigs{m=1}^\infty \prob(\bigi{n=m}^\infty A_n^c) \rightarrow 0 \text{ as } \mathbb{P}(\bigcap\limits_{n=m}^N A_n^c) \xrightarrow{N \rightarrow \infty} 0 \\
+    &\Rightarrow \prob(\lsup{n}A_n) = 1-\prob((\lsup{n}A_n)^c) = 1
+\end{align*}\qed
+\newpage
+\begin{example}(Monkey typing Shakespeare) $\{X_n\}$ is i.i.d sequence of RVs with uniform distribution on $\{1,...,k\}$ where $k$ is the number of keys on the keyboard. \\
+Let $x_1, x_2, ..., x_N$ be the sequence of keys that produces the complete word of W.Shakespeare. \\
+Let $A_n = \bigi{i=1}^N \{X_{n+i} = x_i\}$, the complete work of W.S. starting with (n+1)-st key strokes \\
+$\prob(A_n) = \frac{1}{k^N} \geq 0$ \\
+Note $A_n$'s are not independent since they have common keys, so we could make $A_N, A_{2N}, A_{3N}, ...$ and they are indeed independent, since they depend on independent RV's.
+\begin{equation*}
+    \bigs{j=1}^\infty \prob(A_{jN}) = \infty \xRightarrow{BCL2} \prob(\lsup{j}A_{jN}) =1 \Rightarrow \prob(\lsup{n}A_n) = 1
+\end{equation*}
+\end{example}
+\textcolor{blue}{If $A_n$ are independent, then for any sequence of $A_n, \prob(\lsup{n}A_n) \in \{0,1\}$}\\
+\pf If they converge, we get 0 without using independency(BCL1), if they diverge, we get one with independency (BCL2)
+\begin{dfn}
+Let $X_1, X_2,...$ be RVs and define $\tau_n := \sigma(X_{n+1},X_{n+2}, ...)$ and \\
+1tail $\sigma$-algebra of the sequence $\tau = \bigi{n=1}^\infty \tau_n$
+\end{dfn}
+\begin{ex}
+Show that $\tau = \bigi{n=m}^\infty \tau_n$ for any $m\in\N$
+\end{ex}
+\begin{ex}
+The following events are in $\tau$:
+\begin{enumerate}
+    \item $\{\omega| \lim\limits_{n} X_n(\omega) \text{ exists} \}$
+    \item $\{\omega| \bigs{n}^\infty X_n(\omega) \text{ converges } \}$
+    \item $\{\omega| \lim\limits_{n} \frac{S_n(\omega)}{n} \text{ exists} \}$ where $S_n := \bigs{k=1}^n X_k$
+\end{enumerate}
+The following events are not in $\tau$:
+\begin{enumerate}
+    \item $\{S_n >0\}$, cannot ignore the first n elements
+    \item $\{\lsup{n} S_n >0\}$ \\
+    Similarly, the RV $\lsup{n} \frac{S_n}{n}$ is $\tau$-measurable but $\lsup{n} S_n$ is not 
+\end{enumerate}
+\end{ex}
+\newpage
+\begin{thm}[Kolmogorov's 0-1 law]\label{Kol} If $X_1, X_2, ...$ are independent RV's then for any $A \in \tau$, 
+\begin{equation*}
+    \prob(A) \in \{0,1\}
+\end{equation*}
+\end{thm}
+\pf Let $\chi_n :=\sigma(X_1, X_2, ...,X_n)$, $\tau_n = \sigma(X_{n+1}, X_{n+2}, ...)$
+\begin{lem}
+$\chi_n, \tau_n$ are independent
+\end{lem}
+\pf Let $\A_1 = \{\{X_i \leq x_1| i\leq i\leq n\}, x_i \in \bar{\R}\}$, $\A_2 = \{\{X_j \leq x_j| n+1\leq j\leq n+r\}, r\in \N,x_j \in \bar{\R}\}$, We can easily check for $i = 1,2: \Omega \in \A_i \in \F, \A_i$ is a $\pi$-system. and $\A_1,\A_2$ are independent. This implies $\chi_n = \sigma(A_1)$ and $\tau_n = \sigma(\A_2)$ are independent. 
+\begin{lem}
+$\chi_n$ and $\tau$ are independent.
+\end{lem}
+\pf It is enough to note that $\tau \subset \tau_n$,since $\chi_n$ and $\tau_n$ are independent.
+\begin{lem}
+$\chi_\infty := \sigma(X_1, X_2, ...)$ and $\tau$ are independent.
+\end{lem}
+\pf Let $\A_1 = \bigu{n=1}^\infty \chi_n$, We have $\Omega \in \A_1 \subset \F$ and since $\chi_n\uparrow, \A_1$ is a $\pi$-system. Since each $\chi_n$ is independent of $\tau \Rightarrow \A_1$ is independent of $\tau$ \\
+Hence by Lemma $\sigma(\A_1) = \chi_\infty$ and $\tau$ are independent. \\
+But $\tau \subset \chi_\infty = \sigma(X_1, X_2, ...)$ so,$\tau$ is independent of $\tau$. i.e.
+\begin{equation*}
+    \forall A\in \tau, \quad \prob(A \cap A) = \prob(A)\prob(A) \Rightarrow \prob(A) \in \{0,1\}
+\end{equation*}
+\begin{cor} The following are direct results from Thm\ref{Kol}
+\begin{enumerate}
+    \item If $A_1, A_2, ...$ are independent events then
+    \begin{equation*}
+        \prob(\lsup{n}A_n)\in \{0,1\}
+    \end{equation*}
+    \item If $y$ is $\tau$-measurable then $\exists c\in \bar{R}$ s.t. $\prob(y = c) = 1$
+    \item $\prob(\lim\limits_{n}S_n \text{ exists}) \in \{0,1\}$
+    \item $\prob(\lim\limits_{n}\frac{S_n}{n} = \mu) \in \{0,1\} \forall \mu \text{ by } 2$
+\end{enumerate}
+\end{cor}
+\pf

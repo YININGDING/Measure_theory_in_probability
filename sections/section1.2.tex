@@ -1,0 +1,48 @@
+% !TEX root = ../mat999.tex
+\newpage
+\section{Measure}
+After defining the measurable set on $\Omega$, next we consider about the measure
+\textbf{Def:} Let $(\Omega, \mathcal{F})$ be a measurable space, A set function $\mu: \mathcal{F} \rightarrow [0, +\infty)$ is a measure on $(\Omega, \mathcal{F})$ if:
+\begin{enumerate}
+    \item $\mu(\emptyset) = 0$
+    \item if $A_1, A_2, ... \in \mathcal{F}$ are disjoint then \quad (Countable additivity)
+    \begin{equation*}
+        \mu(\bigcup\limits_{n=1}^{\infty}A_n) = \sum\limits_{n=1}^{\infty}\mu(A_n)
+    \end{equation*}
+\end{enumerate}
+Then the triple $(\Omega, \mathcal{F}, \mu)$ is called a measure space \\[1cm]
+\textbf{Note:} if $\mu(\Omega) = 1$, then the measure is called Probability measure denoted by $\mathbb{P}$, the triple $(\Omega, \mathcal{F}, \mathbb{P})$ is called a probability space with following properties 
+\begin{enumerate}
+    \item $\mathbb{P}(A^c) = 1-\mathbb{P}(A)$
+    \item $\mathbb{P}(A \setminus B) = \mathbb{P}(A) - \mathbb{P}(B)$ if $A\subset B$
+    \item $\mathbb{P}(A) \leq 1$
+\end{enumerate}
+\textbf{Def.} A measure $\mu$ is finite if $\mu(\Omega) < \infty$ \\
+A measure $\mu$ is $\sigma$-finite if $A_1, A_2, ...\in \mathcal{F}$ with $\bigcup\limits_{n=1}^{\infty}A_n = \Omega, \quad \mu(A_n)< \infty,\forall n$ \\[2cm]
+\begin{ex} List few measure examples
+\begin{enumerate}
+    \item \textbf{classical probability measure}: $\Omega = \{1,2,3\}, \mathcal{F} = \{\emptyset, \Omega, \{1\}, \{2,3\}\}$, $\mathbb{P}(A) = \frac{|A|}{|\Omega|}$
+    \item \textbf{Counting measure: Power set}: $\mathcal{F} = 2^\Omega \quad \mu(A) = |A|$    (, this is not probability measure)
+    \item \textbf{Discrete probability measure}: $\Omega = \{\omega_1, \omega_2, ...\}$ countable with $\mathcal{F} = 2^\Omega$ be the power set, $\mathbb{P}(A) = \sum\limits_{n: \omega_n \in A} p_n$ \\ where $p_n \geq 0 \text{with} \sum\limits_{n:\geq 1} p_n = 1$
+\end{enumerate}
+\end{ex}
+\newpage
+\subsection{properties of measure}
+let $(\Omega, \mathcal{F}, \mu)$ be a measure space s.t. $A, B, A_1, A_2, ...\ in\mathcal{F}$ then:
+\begin{enumerate}
+    \item if $A_1, A_2, ... A_N\in \mathcal{F}$ are disjoint then \quad (Finite additivity)
+    \begin{equation*}
+        \mu(\bigcup\limits_{n=1}^{N}A_n) = \sum\limits_{n=1}^{N}\mu(A_n)
+    \end{equation*}
+    \item $A\subset B \Rightarrow \mu(A) \leq \mu(B)$
+    \item $A \subset A_n \bigcup\limits_{n} \Rightarrow \mu(A) \leq \sum\limits_{n \geq 1}\mu(A_n)$
+    \item (Inclusion-exclusion formula) if $\mu(\Omega) < \infty$, for $A_1, A_2, ... A_n\in \mathcal{F}$
+    \begin{equation*}
+    \mu(\bigcup_{i=1}^{n} A_{i})=\sum_{i=1}^{n}\mu(A_{i})-\sum_{1 \leq i<j \leq n}\mu(A_{i} \cap A_{j})+\sum_{1 \leq i<j<k \leq n}\mu(A_{i} \cap A_{j} \cap A_{k})-\cdots+(-1)^{n-1}\mu(A_{1} \cap \cdots \cap A_{n})
+    \end{equation*}
+    \newpage
+    \textbf{Continuity}
+    \item if $A_n \uparrow A (A_n \subset A_{n+1}, \bigcup A_n = A)$, then $\mu(A_n) \uparrow \mu(A)$ \\[5cm]
+    \item if $A_n \downarrow A (A_{n+1} \subset A_n, \bigcap A_n = A)$, with $\mu(A_1) < \infty$ then $\mu(A_n) \downarrow \mu(A)$
+\end{enumerate}
+\textbf{Q: Do we need $\mu(A_1) < \infty$ ?} Hint: \textcolor{red}{Yes}

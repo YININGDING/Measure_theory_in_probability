@@ -1,0 +1,217 @@
+% !TEX root = ../mat999.tex
+\newpage
+\section{Sets and Measurability}
+\textbf{Terminology:} \\[0.5cm]
+\textbf{Probability space} $(\Omega, \F, \mathbb{P})$ \\
+$\Omega$ consists of all possible outcomes $\omega$ of an experiment and is called \textbf{sample space}, $\omega \in \Omega$ is called a \textbf{sample point}. \\
+An element of $\mathcal{F}$ is called an \textbf{event}. \\
+We say an \textbf{event $A\in \F$ occurred} if the outcome or a sample point $\omega \in \Omega$ satisfies $\omega \ in A$
+\begin{dfn}
+Event $A \in \F$ occurs almost surely (a.s.) if $\mathbb{P}(A) = 1$, equivalently, A occurs a.s. if $\mathbb{P}(A^c) = 0$
+\end{dfn} The later half definition is important, for example: \\[0.5cm]
+For general measure space, we say that $S$ (measurable subset of $\Omega$) holds almost everywhere (a.e.) if 
+\begin{equation*}
+    \mu(S^c) = 0
+\end{equation*}
+\begin{example}
+$(\R, \B, \lambda), S = \R \setminus \mathbb{Q},\Rightarrow S^c = \mathbb{Q}$ and $\lambda(S^c) = \lambda(\Q) = 0$
+\end{example}
+\subsection{limsup and liminf sets}
+\begin{dfn}
+let $(A_n)_n$ be a sequence of events, we define the subset $\limsup A_n := \bigcap\limits_{m\geq 1}\bigcup\limits_{n\geq m}A_n$,
+\begin{equation*}
+    (B_n = \bigcup\limits_{n\geq m}A_n,\quad B_n\downarrow \limsup A_n)
+\end{equation*}
+Similarly, $\liminf A_n := \bigcup\limits_{m\geq 1}\bigcap\limits_{n\geq m}A_n$
+\begin{equation*}
+    (C_n = \bigcap\limits_{n\geq m}A_n,\quad C_n\uparrow \liminf A_n)
+\end{equation*}
+\end{dfn}
+\begin{rem}
+\begin{align*}
+    \limsup A_n &:= \bigcap\limits_{m\geq 1}\bigcup\limits_{n\geq m}A_n \\
+    &= \{\omega | \forall m\geq 1, \exists n = n(\omega) \geq m, \omega \in A_n \} \\
+    &= \text{The event $A_n$ occurs infinitely often (i.o.)} \\
+    \liminf A_n &:= \bigcup\limits_{m\geq 1}\bigcap\limits_{n\geq m}A_n \\
+    &= \{\omega | \exists m\geq 1, \forall n \geq m, \omega \in A_n \} \\
+    &= \text{The event $A_n$ eventually occurs}
+\end{align*}
+\end{rem}
+\newpage
+\begin{ex}
+Show that \begin{enumerate}
+    \item $\limsup A_n \in \F$ and $\liminf A_n \in \F$
+    \item $\liminf A_n \subset \limsup A_n$
+    \item $\liminf A_n^c = (\limsup A_n)^c$
+\end{enumerate}
+\end{ex}
+\begin{rem}
+If $\{x_n\}$ is a real sequence, then 
+\begin{align*}  
+    \limsup x_n &:= \inf\limits_{m}\{\sup\limits_{n\geq m} x_n\} \quad \text{The sequence is non-increasing as m increasing}\\
+    &= \downarrow \lim\limits_{m} \{\sup\limits{n\geq m}\} \in [-\infty, +\infty]
+\end{align*}
+\begin{align*}  
+    \liminf x_n &:= \sup\limits_{m}\{\inf\limits_{n\geq m} x_n\} \quad \text{The sequence is non-decreasing as m increasing}\\
+    &= \uparrow \lim\limits_{m} \{\inf\limits{n\geq m}\} \in [-\infty, +\infty]
+\end{align*}
+\end{rem}
+\begin{thm}
+$\exists \lim X_n \in [-\infty, +\infty] \Longleftrightarrow \liminf x_n = \limsup x_n$
+\end{thm}
+\begin{ex}
+Recall the indicator function $\mathbbm{1}_A (\omega)$, Prove that $\forall \omega \in \Omega$
+\begin{enumerate}
+    \item $\limsup\limits_{n} \I_{A_n}(\omega) = \I_{\limsup\limits_{n}A_n(\omega)}$
+    \item $\liminf\limits_{n} \I_{A_n}(\omega) = \I_{\liminf\limits_{n}A_n(\omega)}$
+\end{enumerate}
+\end{ex}
+\vspace{1cm}
+\begin{lem}[The first Borel-Cantelli Lemma]\label{BCL1}
+Let $(A_n)$ be a sequence of events s.t.
+\begin{equation*}
+    \sum\limits_{n} \mathbb{P}(A_n) < \infty \text{ then }, \mathbb{P}(\lsup{n} A_n) = 0
+\end{equation*}
+\end{lem}
+\pf
+\newpage
+\begin{example}
+What about the other half of Lemma \ref{BCL1} ? Is it true that $(A_n)$ events
+\begin{equation*}
+    \sum\limits_{n} \mathbb{P}(A_n) = \infty \text{ then }, \mathbb{P}(\lsup{n} A_n) = 1 \quad \textcolor{red}{No!}
+\end{equation*}
+$\Omega = [0,1], \F = \B, \mathbb{P} = \lambda$, let $A_n = \{(0, \frac{1}{n} )\} \Rightarrow \mathbb{P}(A_n) = \frac{1}{n} \text{ and } \sum\mathbb{P}(A_n) = \infty$ \\
+But $\lsup{n} A_n = \bigcap\limits_{m\geq 1}\bigcup\limits_{n\geq m}A_n = \bigcap\limits_{m\geq 1} A_m = \bigcap\limits_{m\geq 1} (0, \frac{1}{m}) = \{0\} \quad \Rightarrow \mathbb{P}(\lsup{n} A_n) =  \mathbb{P}(\{0\}) = 0$\\
+\end{example}
+\begin{lem}
+For events $A_n \in \F$,
+\begin{enumerate}
+    \item $\mathbb{P}(\lsup{n} A_n) \geq \lsup{n} \mathbb{P}(A_n)$
+    \item $\mathbb{P}(\linf{n} A_n) \leq \linf{n} \mathbb{P}(A_n)$
+\end{enumerate}
+\end{lem}
+\pf 
+\begin{enumerate}
+    \item $\mathbb{P}(\lsup{n} A_n) \geq \lsup{n} \mathbb{P}(A_n)$
+    \begin{align*}
+    &B_m = \bigu{n\geq m}A_n \downarrow \bigi{m}B_m = \lsup{n}A_n \Rightarrow \prob(B_n) \downarrow \prob(\lsup{n}A_n)\\
+    &\prob(\lsup{n}A_n) = \lim \prob(B_m) = \lsup{n}\prob(B_m) \geq\lsup{n}\prob(A_m) \\
+    &\text{Since } A_m \subset B_m \Rightarrow \prob(B_m) \geq \prob(A_m)
+    \end{align*}
+    \item $\mathbb{P}(\linf{n} A_n) \leq \linf{n} \mathbb{P}(A_n)$
+    \begin{align*}
+        &B_m = \bigi{n\geq m}A_n \uparrow \bigu{m}B_m = \linf{n}A_n \Rightarrow \prob(B_n) \uparrow \prob(\linf{n}A_n)\\
+    &\prob(\linf{n}A_n) = \lim \prob(B_m) = \linf{n}\prob(B_m) \leq\linf{n}\prob(A_m) \\
+    &\text{Since } B_m \subset A_m \Rightarrow \prob(B_m) \leq \prob(A_m)
+    \end{align*}
+\end{enumerate}
+\qed
+\begin{lem}[Fatou's Lemma for sets]
+\begin{equation*}
+    \int \linf{n} \I_{A_n} d\prob \leq \linf{n}\int \I_{A_n} d\prob
+\end{equation*}
+\end{lem}
+\pf \begin{align*}
+    \prob(\linf{n} A_n) &=\int \linf{n} \I_{A_n} d\prob \stackrel{(2)}{\leq} \linf{n}\prob(A_n) = \linf{n}\int \I_{A_n} d\prob \\
+    &\Rightarrow \int \linf{n} \I_{A_n} d\prob \leq \linf{n}\int \I_{A_n} d\prob
+\end{align*}
+\qed
+\newpage
+\subsection{Measurable functions}
+Recall that $f:(X, \tau) \mapsto (X', \tau')$ is continuous if $\forall$ open set $G \in \tau'$ we have $f^{-1}(G) \in \tau$
+\begin{dfn}
+let $(\Omega, \F)$ and $(\Omega', \F')$ be measurable spaces, then $f: (\Omega, \F) \mapsto (\Omega', \F')$ is measurable if $\forall A\in \F', f^{-1}(A) \in \F$
+\end{dfn}
+\begin{example}
+The constant function $f \equiv c$ is always measurable (as a function  $f:(\Omega, \F) \mapsto (\R, \B)$)
+\begin{equation*}
+    f^{-1}(A)= \begin{cases}
+        \Omega \quad & c\in A \\
+        \emptyset \quad & c \notin A
+    \end{cases}, \quad A\in \B
+\end{equation*}
+\end{example}
+\begin{dfn}
+A mapping $X: \Omega \mapsto \R$ is a random variable if it is a measurable function of $(\Omega, \F) \mapsto (\R, \B)$
+\end{dfn}
+\begin{lem}
+Let $X: \Omega \mapsto \R$ be a map, and $g:= \{X^{-1}(B)|B\in \B\}$, then $g$ is a $\sigma$-algebra on $\Omega$ and it is the smallest $\sigma$-algebra w.r.t which $X$ is a random variable
+\end{lem}
+\begin{dfn}
+$g$ from above lemma is called $\sigma$-algebra generated by $X$, it is denoted by $\sigma(X)$
+\end{dfn}
+\pf $g$ is the smallest $\sigma$-algebra
+\newpage
+\begin{lem}:
+\begin{enumerate}
+    \item if $f: \R \mapsto \R$ is continuous then $f: (\Omega, \F) \mapsto (\R, \B)$ is measurable
+    \item if $f: \R \mapsto \R$ is monotone, then $f: (\Omega, \F) \mapsto (\R, \B)$ is measurable
+\end{enumerate}
+\end{lem}
+\begin{prop}
+Suppose $X,Y$ are RV's and $f: (\R, \B) \mapsto (\R, \B)$ is measurable, then $X+Y, XY, f(X)$ are RV's
+\end{prop}
+\begin{rem}
+$f: (\Omega, \F) \mapsto (\R, \B)$ is measruable $\Longleftrightarrow \exists \A\subset \F', \sigma(\A) = \F \text{ s.t. } \forall A\in \A, f^{-1}(A) \in \F$
+\end{rem}
+\pf ($X+Y$ is RV:) \\
+let $Z := X + Y$ then $Z^{-1}(-\infty, z) = \{\omega \in \Omega| Z(\omega) < z\} = \{\omega \in \Omega| X(\omega)+ Y(\omega)< z\}$ \\[0.5cm]
+Note: $X + y < z \Longleftrightarrow x<z-y \Longleftrightarrow \exists r\in \Q: x<r<z-y \Longleftrightarrow \exists r\in \Q: x<r, y<z-r$
+\begin{align*}
+   &=\{\omega \in \Omega| \exists r\in \Q X(\omega)<r,  Y(\omega)< z-r\} = \bigcup\limits_{r \in \Q}\{\omega| X(\omega)<r,  Y(\omega)< z-r\} \\
+   &= \bigcup\limits_{r \in \Q}\{\omega| X(\omega)<r\}\cap\{\omega|  Y(\omega)< z-r\} \in \F
+\end{align*}
+\qed \\
+($Z = f(X)$ is measurable) \\
+For $B\in \B, Z^{-1}(B) = X^{-1}(f^{-1}(B)), f^{-1}(B)\in \B, X^{-1}(f^{-1}(B)) \in \F$
+\begin{ex}
+$Z = XY$ is measurable
+\end{ex}
+\newpage
+\textcolor{blue}{Why we concern measurable function rather than continuous function?}The limit of a sequence of continuous function is generally not continuous, However the limit preserves measurability \\[0.5cm]
+In the context of limits, it is convenient to allow RV's to take the value $\pm\infty$
+\begin{equation*}
+    X: \Omega \mapsto \bar{\R} := [-\infty, +\infty]
+\end{equation*}is a RV if it is measurable as mapping from $ (\Omega, \F) \mapsto (\bar{\R}, \bar{\B})$, \\ 
+where $\bar{\R}$ is called the extended real line: unions of intervals $[-\infty,x), (x,y), (y, +\infty]$ \\
+$\bar{\B}$ is the sigma algebra generated by open sets in $\bar{\R}$
+\begin{prop}
+If {$X_n$} are RV's then so are 
+\begin{enumerate}
+    \item $\inf\limits_{n} X_n$
+    \item $\sup\limits_{n} X_n$
+    \item $\linf{n} X_n$
+    \item $\lsup{n} X_n$
+    \item $\lim\limits_{n} X_n \I_{\{\exists \lim\limits_{n} X_n \in \R\}}$
+    \item $\lim\limits_{n}X_n \I_{\{\exists \lim\limits_{n} X_n \in \bar{\R}\}}$
+\end{enumerate}
+\end{prop}
+\newpage
+\pf: \\
+1. Let $X = \infunder{n} X_n$ then
+\begin{align*}
+    X^{-1}([-\infty, x)) &= \{\omega| \infunder{n} X_n(\omega) <x\} = \{\exists n| X_n(\omega) < x\} \\
+    &= \bigcup\limits_{n}\{\omega |X_n(\omega) < x\} = \bigcup\limits_{n}X_n^{-1}([-\infty, x)) \in \F
+\end{align*}Given $X_n$ are RVs, union of countable sets in $\F$ is again in $\F$ \\
+2. \textbf{Note: $\supunder{n}X_n = -\infunder{n}(-X_n)$} \\
+Given $X_n$ is RVs, so is $-X_n$, by similar reason, $\supunder{n}X_n$ is also RVs \\
+3. \begin{align*}
+    \linf{n} X_n &= \supunder{m}\{\infunder{n\geq m} X_n\} = \supunder{m}Y_m \\
+    &\text{Where } Y_m = \infunder{n\geq m} X_n\text{ This is RV by 1} \\
+    \linf{n} X_n &=\supunder{m}Y_m \text{ This is sup of RV which is RV again by 2}
+\end{align*}
+4. \textbf{Note: $\lsup{n}X_n = -\linf{n}(-X_n)$} \\
+Given $X_n$ is RVs, so is $-X_n$, by similar reason, \\
+5. 
+\begin{align*}
+    A &= \{\omega | \lsup{n}X_n(\omega) < \infty \} \in \F \text{ by 4} \\
+    B &= \{\omega | \linf{n}X_n(\omega) > \infty \} \in \F \text{ by 3} \\
+    &A\cap B \in \F \Rightarrow \I_{A\cap B} \text{ is RV} \\
+    &\text{(Indicator function of measurable set is measurable function)} \\
+    \Rightarrow X :&= \I_{A\cap B}(\lsup{n}X_n - \linf{n}X_n) \text{is well-defined RVs} \\
+    \Rightarrow E:&= \{\omega | X(\omega)=0\} \cap A\cap B \in \F \\
+    &= \{\omega| \exists \lim\limits_{n}X_n, \lim\limits_{n} X_n \in \R\} \\
+    &\text{Hence} \lim\limits_{n}X_n \I_{E} = \linf{n}X_n \I_{E} \text{ is RV}
+\end{align*}
+6.
+Everything stays the same as in 5, except we have to include $\pm \infty$ in A and B
