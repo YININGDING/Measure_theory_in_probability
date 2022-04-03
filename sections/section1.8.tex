@@ -52,7 +52,9 @@ Let $X_n := \bigs{k=1}^n x_k \I_{A_k}, X_n\uparrow X'$ and by MCT:
         \forall B \in \B, \prob(X\in B) = \mu_X(B) = \int_B fd\lambda = \int_\R f \I_B d\lambda
     \end{equation*}f is called the \textbf{density} of induced measure $\mu_X$
 \end{dfn}
-\begin{thm}[Change of variables formula] Let $X$ be a RV on $(\Omega, \F, \prob)$ and induced measure $\mu_X$ be distribution of X
+\begin{thm}[Change of variables formula]
+\label{change}
+Let $X$ be a RV on $(\Omega, \F, \prob)$ and induced measure $\mu_X$ be distribution of X
 \begin{enumerate}
     \item suppose that $h: (\bar{\R}, \bar{\B})\mapsto (\bar{R}^+, \bar{\B}^+)$ is measurable,let $Y:=h(X)$ Then $Y$ is non-negative RV with
     \begin{equation*}
@@ -199,7 +201,9 @@ If $X\in \ls{1}$ then $m := \E(X)$ is well-defined and finite. Since we have $(X
     V(X) := \E((X-m)^2) < \infty \Longleftrightarrow X\in \ls{2}
 \end{equation*}
 \end{dfn}
-\begin{thm}[Chebyshev's Inequality]For $X\in \ls{2}$ with $m = \E(X)$
+\begin{thm}[Chebyshev's Inequality]
+\label{Chebyshev}
+For $X\in \ls{2}$ with $m = \E(X)$
 \begin{equation*}
     \prob(\abs{X-m}\geq \epsilon) \leq \frac{V(X)}{\epsilon^2}
 \end{equation*}
@@ -449,7 +453,7 @@ By Monotone Class theorem \ref{Monotonclass}: Every bounded $\F$-measurable func
 
 
 \newpage
-\subsection*{product measure}
+\textbf{product measure} \\
 Given $(\Omega_i, \F_i, \mu_i)$ with $\mu_i$ finite measures for $i=1,2$ we define $\mu: \F \mapsto \R^+$ as 
 \begin{equation*}
     \bigoplus \quad \mu(A) := \int_{\Omega_1} I_1(\cdot, \I_A) \diff \mu_1 \stackrel{\text{Fubini}}{=} \int_{\Omega_2} I_2(\cdot, \I_A) \diff \mu_2
@@ -484,3 +488,99 @@ Let $\mu$ be the product measure on $(\Omega, \F)$ of $(\Omega_i, \F_i, \mu_i)$ 
 \end{enumerate}
 \end{thm}
 \pf  Exercise, again :)
+\begin{rem}
+If $(\Omega_i, \F_1, \mu_i), i=1,...,n$ are $\sigma$-finite measure spaces, then we can inductively define $\F = \F_1 \times \F_2 \times ... \times \F_n$ and $\mu =\mu_1 \times \mu_2 \times ... \times \mu_n $ and Fubini tells us that for any measurable function $f\geq 0$ on $(\Omega, \F)$ and any permutation $\pi \in S_n$:
+\begin{equation*}
+    \int f\diff\mu = \int_{\Omega_{\pi_1}}\int_{\Omega_{\pi_2}} ... \int_{\Omega_{\pi_n}} f \diff\mu_{\pi_n} \diff\mu_{\pi_{n-1}} ... \diff\mu_{\pi_1}
+\end{equation*}The same holds for $f\in \ls{1}(\Omega, \F, \mu)$
+\end{rem}
+\begin{cor}[Lebesgue measure on $\R^n$]$\exists!$ measure $\lambda_n$ on $(\R^n, \B(\R^n)) = (\R^n, \B^n)$ s.t. for any intervals $I_i = [a_i, b_i)$
+\begin{equation*}
+    \lambda_n (I_1 \times ... \times I_n) = \lambda_1(I_1) ... \lambda_n(I_n)
+\end{equation*}
+\end{cor}
+\newpage
+\begin{prop}Suppose $X \geq 0$ RV on $(\Omega, \F, \prob)$ and let $G(x) := \prob(X\geq x)$ 
+\begin{equation*}
+    \E(X) = \int_{\R^+} G \diff\lambda = \int_0^\infty \prob(X\geq x) \diff x
+\end{equation*}
+\end{prop}
+\pf Consider the measure $\mu = \prob \times \lambda$ on $(\Omega, \F) \times (\R^+, \B^+)$ this is well defined by previous remark. Let $A := \{(\omega, x)| X(\omega) \geq x \geq 0\}$ \\
+Let $f := \I_A$ This is a function on $\Omega \times \R^+$\begin{equation*}
+    \int f \diff \mu = \int \I_A \diff \mu \stackrel{\text{Fubini}}{=} \int_{\R^+}\into \I_A(\omega,x) \diff\prob(\omega) \diff\lambda(x) = \into\int_{\R^+} \I_A(\omega,x)  \diff\lambda(x)\diff\prob(\omega)
+\end{equation*}
+Consider the second integral $(\int_{\R^+} \I_A(\omega,x)  \diff\lambda(x))$
+\begin{align*}
+    &\int_{\R^+} \I_A(\omega,x)  \diff\lambda(x) = \int_{\R^+} \I_{\{x\leq X(\omega)\}}  \diff\lambda(x) = X(\omega) \\
+    \implies& \int \I_A \diff \mu =\into\int_{\R^+} \I_A(\omega,x)  \diff\lambda(x)\diff\prob(\omega)= \into X(\omega) \diff\prob(\omega) = \E(X)
+\end{align*}
+Consider the first integral $\into \I_A(\omega,x) \diff\prob(\omega)$
+\begin{align*}
+    &\into \I_A(\omega,x) \diff\prob(\omega) = \into \I_{\{\omega|X(\omega) \geq x\}} \diff\prob(\omega) = \prob(X\geq x) \\
+    \implies& \int \I_A \diff \mu =\int_{\R^+}\into \I_A(\omega,x) \diff\prob(\omega) \diff\lambda(x) = \int_{\R^+} \prob(X\geq x)\diff\lambda(x) = \int_{\R^+} G \diff\lambda
+\end{align*}
+Hence $\E(X) = \int_{\R^+} \prob(X\geq x) \diff\lambda$ since $G$ is monotonic decreasing, then it is Riemann integrable 
+
+\newpage
+\subsection{Random Vector}
+Few remarks on Random Vectors(RV's)
+\begin{dfn}
+A measurable function$X=(X_1, ..., X_n): (\Omega, \F) \mapsto (\R^n, B^n)$ is called a random vector.
+\end{dfn}
+\begin{ex}
+$X$ is a random vector $\Longleftrightarrow$ $X_i$ is a RV for $i=1,...,n$
+\end{ex}
+Recall, the probability is induced by RV $X$ on $(\R, \B)$:
+\begin{equation*}
+    \mu_X(B) := \prob(X\in B), \quad \forall B\in\B
+\end{equation*}Similarly, if $\doublebar{X} = (X_1,...,X_n)$ a r.v. then it induces a probability measure on $(\R^n, \B^n)$:
+\begin{equation*}
+    \mu_{\doublebar{X}} (B) := \prob(\doublebar{X}\in B), \quad \forall B\in\B^n
+\end{equation*}
+\begin{dfn}[absolutely continuous] $\mu_{\doublebar{X}}$ is absolutely continuous (a.c.) w.r.t $\lambda_n$ if $\exists f: \R^n \mapsto [0, \infty]$ measurable s.t. 
+\begin{equation*}
+    \mu_{\doublebar{X}} (B) = \int_B f \diff\lambda_n, \qquad \forall B\in \B^n
+\end{equation*}and $\mu_{\doublebar{X}}(\R^n)=1$ which makes it probability measure,  $f$ is called the density of $\mu_{\doublebar{X}}$
+\end{dfn}
+\begin{ex}
+\begin{enumerate}
+    \item if $\doublebar{X}$ has density $f$ w.r.t $\lambda_n$, then each $X_i$ has density w.r.t $\lambda$ and 
+    \begin{equation*}
+        f_{X_i} = \int ... \int f(x_1, ..., x_{i-1}, x, ...,x_n) \diff \lambda(x_1) ,...., \diff \lambda(x_{i-1}) ...\diff \lambda(x_n)
+    \end{equation*}
+    \item If $\mu_{\doublebar{X}}(\R^n)=1$ and $f: \R^n \mapsto [0,\infty]$ measurable s.t. 
+    \begin{equation*}
+        \forall B\in \tau = \{B_1 \times ... \times B_n|B_i\in \B_i\} \quad \mu_{\doublebar{X}}(B) = \int f \diff\lambda_n
+    \end{equation*}Then $\mu_{\doublebar{X}}$ is a.c. w.r.t $\lambda_n$ and $f$ is the density of $\doublebar{X}$
+    \item If the RVs $X_1,...,X_n$ are independent and if each $X_i$ has density $f_i$ then $\doublebar{X} = (X_1,...,X_n)$ has density:
+    \begin{equation*}
+        f(X_1,...,X_n) = \bigp{i=1}^n f_i(x_i)
+    \end{equation*}
+\end{enumerate}
+\end{ex}
+\newpage
+\subsection{Change of variable}
+Using change of Variable theorem \ref{change} we deduce:
+Let $\doublebar{X}$ be a random vector from $(\Omega, \F, \prob) \mapsto (\R^n, \B^n)$, Suppose $h:(\R^n, \B^n) \mapsto (\R, \B) $ is measurable, then for $Y = h(\doublebar{X})$ we have 
+\begin{enumerate}
+    \item $\E(Y) = \int Y \diff \prob$ is defined iff $\int_{\R^n} h \diff\mu_{\doublebar{X}}$ is defined and $\E(Y) = \int_{\R^n} h \diff\mu_{\doublebar{X}}$
+    \item $Y = h(\doublebar{X}) \in \ls{1}(\Omega, \F, \prob) \Longleftrightarrow h\in \ls{1}(\R^n, \B^n, \mu_{\doublebar{X}})$ Moreover, if $\doublebar{X}$ has density $f$ then 
+    \begin{equation*}
+        \E(Y) = \int_{\R^n} hf \diff\lambda_n
+    \end{equation*}
+\end{enumerate}
+\subsection{Strong Law of Large number}
+\textbf{we have a SLLN before but that requires fourth moment exist. Now we drop this assumption} \\ 
+Let $(X_n)$ be a sequence of i.i.d RVs s.t. $\E(\abs{X_i}) < \infty$ then $(X_n)$ satisfies SLLN
+\begin{equation*}
+    \biglim{n\rightarrow \infty} \frac{S_n}{n} = \E(X_1) \quad a.s.
+\end{equation*}where $S_n = \bigs{k=1}^n X_k$ \\
+\pf 
+\textbf{Sketch of the proof:} Observation: Fix $\epsilon > 0$ Denote by \begin{equation*}
+    A_n(\epsilon) := \{\omega|\abs{\frac{Y_1+...+Y_n}{n}} > \epsilon\}
+\end{equation*}Assume $\E(Y_i) = 0 \quad \forall i = 1,...,n$ By Chebyshev \ref{Chebyshev} inequality:
+\begin{equation*}
+    \prob(A_n(\epsilon)) \leq \frac{\bigs{i=1}^n V(Y_i)}{\epsilon^2 n^2}
+\end{equation*}If we have $\bigs{n=1}^\infty \frac{\bigs{i=1}^n V(Y_i)}{n^2} < \infty$ then by Borel-Cantelli lemma \ref{BCL1} for a.e. $\omega, \omega \in A_n(\epsilon)$ for finitely many n's. Take $\epsilon_n = \frac{1}{n} \implies$ we showed: \\
+\textbf{Claim:} If $(Y_n)$ r.v. with $\E(Y_i) = 0$ and such that $\bigs{n=1}^\infty \frac{\bigs{i=1}^n V(Y_i)}{n^2} < \infty$ then $\frac{S_n^Y}{n} \rightarrow 0 \qquad a.s.$
+
