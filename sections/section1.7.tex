@@ -110,7 +110,28 @@ Sequence of measurable functions $f_n$ converges to a measurable function $f$:
         \int \abs{f_n - f}^p d\mu \xrightarrow{n \rightarrow \infty} 0
     \end{equation*}
     This is denoted by $f_n \xrightarrow{\ls{p}}f$
+    \item In distribution \\
+    Let $(\mu_n), \mu$ be probability measures on $(\R, \B)$, we say $\mu_n$ converges weakly to $\mu$.\\
+    If for any $x\in \R$ s.t. $\mu(\{x\}) = 0$ we have 
+\begin{equation*}
+\mu_n((-\infty,x]) \rightarrow \mu((-\infty,x]) 
+\end{equation*}That is $\forall x\in \R $ s.t. F is continuous 
+\begin{equation*}
+    F_n(x) \xrightarrow{d} F
+\end{equation*}This is denoted by $\mu_n \implies\mu$ or $\mu_n \xrightarrow{d}\mu$
 \end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
 \end{dfn}
 \begin{lem} if $f_n \xrightarrow{\text{a.e.}}f$ and $\mu(\Omega) < \infty$ then $f_n \xrightarrow{\mu}f$
 \end{lem}
@@ -127,6 +148,10 @@ Let $f_n$ be measurable functions and $f_n \xrightarrow{\ls{1}}f$ Then $f_n \xri
 \begin{equation*}
     \mu(\abs{f_n-f} \geq \epsilon) \leq \frac{1}{\epsilon}\int \abs{f_n-f} d\mu \xrightarrow{n\rightarrow \infty} 0
 \end{equation*}
+\begin{lem}
+if $X_n \xrightarrow{\prob}$ then $X_n \xrightarrow{d} X$
+\end{lem}
+This proof is given at end of chapter 9
 \newpage
 \begin{example}Difference between modes of convergence.(Counterexample)
 \begin{enumerate}
