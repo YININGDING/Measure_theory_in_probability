@@ -1,0 +1,409 @@
+% !TEX root = ../mat999.tex
+\newpage
+\section{Conditional expectation}
+Given $(\Omega, \F, \prob)$ Fix $A\in \F, \prob(A)>0$ we define conditional probability as
+\begin{equation*}
+    \prob_A(B) = \prob(B|A) := \frac{\prob(A\cap B)}{\prob(A)} \qquad B\in \F
+\end{equation*}
+\begin{lem}
+$\prob_A$ is a probability measure on $\F$
+\end{lem}
+
+\begin{dfn}[Conditional expectation]
+Let $X$ be a RV s.t. $X\in \ls{1}$ then \begin{equation*}
+    \E(X|A) := \into X \diff\prob_A
+\end{equation*}
+\end{dfn}
+\begin{thm}
+Let $\prob(A)>0, A\in \F, X\in\ls{1}$ Then
+\begin{equation*}
+    \E(X|A) = \frac{1}{\prob(A)}\E[\I_A X]
+\end{equation*}
+\end{thm}
+\pf
+\begin{enumerate}
+    \item[step1] take indicator functions $X= \I_B, B\in \F$
+\begin{equation*}
+    \E(\I_B|A) = \into \I_B(\omega) \diff\prob_A(\omega) = \prob_A(\I_B = 1) = \prob_A(B) = \frac{\prob(A\cap B)}{\prob(A)} = \frac{1}{\prob(A)}\E[\I_A \I_B]
+\end{equation*}
+    \item[step2] Take linear combination of indicator functions, $X= \bigs{k=1}^n a+k \I_{B_k}, B_k\in \F$ by linearity
+    \item[step3] Take $X\geq 0, X_n\leq X$ s.t. $X_n$ simple and $X_n \rightarrow X$ a.s.
+    \begin{equation*}
+        \E(X_n|A) = \frac{1}{\prob(A)}\E[\I_A X_n] \stackrel{DCT }{\implies}  \E(X|A) = \frac{1}{\prob(A)}\E[\I_A X]
+    \end{equation*}
+    \item[step4] $X = X^+ - X^-$
+    \begin{align*}
+        \E(X|A) &= \E(X^+ - X^-|A) = \E(X^+|A) -\E(X^-|A) \\
+        &= \frac{1}{\prob(A)}\E[\I_A X^+] - \frac{1}{\prob(A)}\E[\I_A X^-] \\
+        &= \frac{1}{\prob(A)}\E[\I_A X]
+    \end{align*}
+\end{enumerate}\qed
+
+\begin{thm}
+Let $\{A_i ; i>1\}$ be a partition of $\Omega$, $\prob(A_i) >0$, $X\in\ls{1}$ a r.v then
+\begin{equation*}
+    \E(X) = \bigs{i=1}^\infty \E(X|A_i)\prob(A_i)
+\end{equation*}
+\end{thm}
+\pf
+\newpage
+\begin{ex}
+$\setg = \sigma(\{A_i, i>1\}) \subset \F$, Let $A\in \setg$ Then $\exists 1 \leq i_1 < i_2 < ... $ s.t. 
+\begin{equation*}
+A = \bigu{k=1}^\infty A_{ik}
+\end{equation*}
+\end{ex}
+
+\begin{dfn}[RV conditioning on sigma algebra]
+\begin{equation*}
+    \E[X|\setg](\omega) = \E[X|A_i] \qquad \omega \in A_i
+\end{equation*}We also have (Law of total expectation)
+\begin{equation*}
+    \E(X) = \bigs{i}\E(X|A_i)\prob(A_i) = \E[\E(X|\setg)]
+\end{equation*}
+\end{dfn}
+\begin{rem}
+The above definition could also be written as:
+\begin{equation*}
+     \E[X|\setg](\omega) =\bigs{i=1}^\infty \E[X|A_i]\I_{A_i}
+\end{equation*}
+\end{rem}
+\begin{thm} For RV conditioning on sigma algebra:
+\begin{enumerate}
+    \item $\E(X|\setg)$ is $\setg$-measurable
+    \item If $B\in\setg$ then
+    \begin{equation*}
+        \E(X\I_B) = \E[\I_B \E(X|\setg)]
+    \end{equation*}
+\end{enumerate}
+\end{thm}
+\pf (i) For each "atom" of $\setg$, we have $\E(X|\setg) = \E(X|A_i)$ which is constant, then this relation still holds true for $A_I, I\subset [1,2,...]$ \\
+(ii)$B\in \setg$ by the exercise we have $B = \bigs{k=1}^\infty A_{i_k}$ \begin{equation*}
+    \E(X\I_B) = \bigs{k}\E(X\I_{A_{i_k}}) = \bigs{k}\E(X| A_{i_k})\prob(A_{i_k}) = \E[\I_B \E(X|\setg)]
+\end{equation*}
+\newpage
+\begin{dfn}
+Let $(\Omega, \F, \prob)$ be given, $\setg \subset\F,\sigma$-algebra, we say that a R.V. $Y$ is a conditional expectation \begin{equation*}
+    Y = \E(X|\setg)
+\end{equation*} if the following two properties holds true. \begin{enumerate}
+    \item $\E(X|\setg)$ is $\setg$-measurable
+    \item $\forall B\in \setg$ \begin{equation*}
+        \E(X \I_B) = \E(\E(X|\setg) \I_B)
+    \end{equation*}
+\end{enumerate}
+\end{dfn}Which is the final construction of conditional expectation.
+\begin{ex}
+let $\{A_i, i\geq1\}$ partition of $\Omega$ with $\prob(A_i) \geq 0$ choose $a_i, i=1,2,...$ any sequence of real numbers and $a = (a_1, ...)$ and define 
+\begin{equation*}
+    Y^a = \begin{cases} \E(X|A_i) \quad \omega\in A_i, \prob(A_i)>0 \\
+    a_i\quad \omega\in A_i, \prob(A_i) = 0
+    \end{cases}
+\end{equation*}Show that $Y^a$ satisfies the definition, also we could take another sequence $b = (b_i)\neq a$ we could define $Y^b$ in similar sense, but notice $\prob(Y^a = Y^b) = 1$ (i.e. they differ in zero measure set)
+\end{ex}
+\begin{rem}[Versions]
+On the set of zero measure, what happens does not matter. So $Y^a, Y^b$ are versions of each other.
+\end{rem}
+
+\begin{thm}[Existence and Uniqueness]
+Let $(\Omega, \F, \prob)$ be given, $\setg \subset\F,\sigma$-algebra with $X\in\ls{1}$ Then there exists a unique (up to a version) random variable
+\begin{equation*}
+    Y = \E(X|\setg)
+\end{equation*}
+\end{thm}The existence part requires RN density we skip this part for future, we show uniqueness here:
+
+\begin{cor}
+Assume the following are all well defined (integrability is satisfied):
+\begin{enumerate}
+    \item If $X\geq 0$ a.s then $\E(X|\setg) \geq 0$ a.s.
+    \item $X \geq Y \implies \E(X|\setg) \geq \E(Y|\setg)$
+\end{enumerate}
+\end{cor}
+
+\begin{thm}
+Let $\E(X_k) <\infty \quad k = 1,2,... \quad \setg\subset\F$ then
+\begin{enumerate}
+    \item If $X$ is $\setg$-measurable then \begin{equation*}
+        \E(X|\setg) = X
+    \end{equation*}
+    \item $\E(aX_1 + bX_2 |\setg) = a\E(X_1|\setg)+b\E(X_2 |\setg)$
+    \item $X_n \uparrow X$ a.s. then \begin{equation*}
+        \biglim{n} \E(X_n|\setg) = \E(X|\setg)
+    \end{equation*}
+    \item (Tower property) $\setg_1\subset\setg_2\subset\F$ then
+    \begin{equation*}
+        \E(X|\setg_1) = \E(\E(X|\setg_2)|\setg_1)
+    \end{equation*}
+    \item $\E(X) = \E(\E(X|\setg))$ (let $\setg_2 = \Omega$ then use previous argument)
+    \item Let $Y$ be a bounded r.v. and $\setg$-measurable, then \begin{equation*}
+        \E(YX|\setg) = Y\E(X|\setg)
+    \end{equation*}
+\end{enumerate}
+\end{thm}
+
+\newpage
+\pf of Tower property
+$\E(X|\setg_1)$ is $\setg_1$-measurable, take $A\in \setg_1 \implies A\in \setg_2$ then 
+\begin{equation*}
+    \E(\I_A \E(X|\setg_2)) = \E(X\I_A) \implies \E(\E(X|\setg_2)|\setg_1) = \E(X|\setg_1) 
+\end{equation*}
+\textbf{More properties:} \\
+Recall independency between sigma algebras: $Y_1, Y_2$ independent, $A\in Y_1, B\in Y_2$ then $\prob(A\cap B) = \prob(A)\prob(B)$. \\
+If $X$ is independent of $\setg$ ($\sigma(X), \setg$) then \begin{equation*}
+    \E(X|\setg) = \E(X)
+\end{equation*}
+\pf Take $A\in\setg$ we have $X, \I_A$ is independent
+\begin{align*}
+    \E(\E(X)\I_A) = \E(X)\E(\I_A)\stackrel{Indep}{=} \E(X\I_A) \implies \E(X|\setg) = \E(X)|\setg = \E(X)
+\end{align*}
+
+\begin{thm}(Jensen's inequality)
+\label{CJensen} Let 
+Let $I\subset\R, f: I\mapsto \R$ be convex function, $X, f(X) \in \ls{1}$, $\setg \subset \F$ Then:
+\begin{equation*}
+    f(\E(X|\setg)) \leq \E(f(X)|\setg)
+\end{equation*}
+\end{thm}
+
+\begin{thm}
+Let $(\Omega,\F, \prob), X,Y$ be two random variables, $Y$ is $\sigma(X)$-measurable, then there exists a Borel function $h:\R\mapsto\R$ s.t.
+\begin{equation*}
+    Y = h(X)
+\end{equation*}
+\end{thm}
+\pf X r.v then $\sigma(X)=\{X^{-1}(B), B\in\B(\R)\}$
+\begin{enumerate}
+    \item $Y = \I_A, A\in\sigma(X)$ By definition $A = \{\omega\in\Omega, X(\omega)\in B, B\in\B(\R)\}, Y(\omega) = \I_A(\omega) = \I_B(X(\omega))$ Now, we have $h = \I_B$
+    \item $Y = \bigs{i=1}^n a_i \I_{A_i}$ with $\I_{A_i}(\omega) = \I_{B_i}(\omega) \implies h_i(x) = \I_{B_i}(x), B_i\in\B(\R)$ \\
+    Hence $Y = \bigs{i=1}^n a_i \I_{B_i}(x), h(X) = \bigs{i=1}^n a_i \I_{B_i}(X)$
+    \item Let $Y$ be arbitrary, we have $Y_n \rightarrow Y$ s.t. $Y_n$ is simple and $\sigma(X)$-measurable, by 2 we have $Y_n = h_n(X)$ Define $B = \{x\in\R; \biglim{n\rightarrow\infty }h_n(X) \text{exists}\}$ which is Borel set, Then define:
+    \begin{equation*}
+        h(X) = \begin{cases}
+        \biglim{n} h_n(x) \quad \text{if exists} \\
+        0 \quad \text{if does not exists}
+        \end{cases}
+    \end{equation*} Then we have $Y(\omega) = \biglim{n} Y_n(\omega) = \biglim{n} h_n(X(\omega)) = h(X(\omega))$
+\end{enumerate}
+
+\begin{thm}
+If $X\in\ls{1}$ and $Y$ is a r.v. then there exists a Borel function $h:\R\mapsto\R$ s.t. 
+\begin{equation*}
+    \E(X|\sigma(Y)) = h(Y) \quad a.s.
+\end{equation*}
+\end{thm}Which is obvious by previous theorem.
+\begin{rem}
+Let's define $\E(X|Y=y) = h(y)$ sometimes the LHS could be undefined because of zero probability, hence this equality holds in a.s. sense.
+\end{rem}
+\newpage
+\begin{example}
+$X_1, X_2, ...$ be i.i.d r.v with $X_i\in\ls{1}$ and denote $S_n = X_1 + ... + X_n$ \\
+\textbf{Claim:}
+\begin{equation*}
+    \E(X_k|S_n) = \frac{S_n}{n}, \qquad \forall k = 1,..,n
+\end{equation*}
+\pf $S_n = \E(S_n|S_n)= \E(\bigs{k=1}^n X_k|S_n) =\bigs{k=1}^n \E( X_k|S_n)$ \\
+By symmetry we have $\E(X_i|S_n) = \E(X_j|S_n), i,j = 1,2,...$ then we have desired claim
+\end{example}
+\vspace{2cm}
+\begin{example}
+Let $X$ be state of unobservable system, define $F(a):=\E(X-a)^2$ be lost function then we have $\bar{X} = \E(X)$ gives minimum. 
+\begin{align*}
+    &\frac{\diff F(a)}{\diff a} = 2a - 2\E(X) \\
+    &\frac{\diff F(a)}{\diff a} = 0 \implies a = \E(X)
+\end{align*}gives minimum (positive second derivative) \\
+We also have $Y$ to be observation $Y = X+\epsilon$ Minimise $\E(X - g(Y))^2$ over all functions $g: \R \mapsto \R$
+\begin{align*}
+    &\E(X - g(Y))^2 = \E[\E((X - g(Y))^2 |Y)] \\
+    \intertext{Then minimize what's inside expectation}
+    &\E((X - g(Y))^2 |Y) = \E(X^2 -2Xg(Y) +g^2(Y) |Y) = \E(X^2|Y)-2g(Y)\E(X|Y) + g^2(Y) \\
+    & G(z)= \E(X^2|Y)-2z\E(X|Y) + z^2 \\
+    &\bar{z} = \E(X|Y) \implies \bar{g}(Y) = \E(X|Y)
+\end{align*}
+\end{example}
+\newpage
+\begin{dfn}[Conditional probability]
+$\prob(B|\setg) = \E(\I_B|\setg)$
+\end{dfn}
+Facts:
+\begin{enumerate}
+    \item $\prob(B|\setg)$ is $\setg$-measurable
+    \item $\forall A\in \setg$ 
+    \begin{equation*}
+        \prob(A\cap B) = \E(I_A I_B) = \E(I_A \E(\I_B|\setg)) =  \E(I_A \prob(B|\setg))
+    \end{equation*}
+    \item $0\leq \I_B\leq 1 \implies 0\leq \prob(B|\setg)\leq 1$
+    \item If $B_n$ are pairwise-disjoint then $\prob(\bigu{n}B_n|\setg) = \bigs{n}\prob(B_n|\setg)$ \textcolor{red}{a.s.}
+    \begin{rem}
+    $\forall (B_n)$  there exists a null set $N(B_1, ...)$ s.t. $\prob(N) = 0$ and $\forall \omega \in \Omega\setminus N$ we have above property
+\end{rem}
+\end{enumerate}
+\newpage 
+\textbf{Question}: Is $\prob(\cdot | \setg)(\omega)$ a probability measure $\forall \omega \notin N, \prob(N) =0$\\
+We consider $(B, \omega)\mapsto \prob(B|\setg)(\omega)$. For fixed $\omega$, it is a measure, For fixed set, it is a random variable.
+\begin{dfn}
+$\prob_\setg(\cdot,\cdot): \F \times \Omega \mapsto [0,1]$ ($\prob_\setg(B,\omega) = \prob(B|\setg)(\omega) $) is a \textbf{regular} conditional distribution if 
+\begin{enumerate}
+    \item $\forall B\in\F, \prob_\setg(B,\cdot)$ is a version of $\E(\I_B|\setg)$
+    \item $\forall \omega\in\omega, \prob_\setg(\cdot,\omega)$ is a probability measure
+\end{enumerate}
+\end{dfn}
+\begin{thm}
+Let $X\in\ls{1}$ and let $\prob_\setg$ be a regular conditional distribution. then 
+\begin{equation*}
+    \E(X|\setg)(\omega) = \into X(\tilde{\omega}) \prob(\diff\tilde{\omega}, \omega)
+\end{equation*}
+\end{thm}
+\begin{thm}
+Let $X$ be a r.v $\setg\subset\F$. Then there exists a regular version of conditional distribution 
+
+\begin{itemize}
+    \item $\prob_{X|\setg}(\cdot,\cdot) \text{ on } \B(\R)\times \Omega$
+    \item $\forall B\in\B(\R), \prob_{X|\setg}(B,\omega) = \prob(X\in\B|\setg)(\omega)$
+    \item $\forall \omega\in\Omega, \prob_{X|\setg}(\cdot,\omega)$ is a probability measure
+\end{itemize}
+\end{thm}
+\textbf{Example:} Let $X$ be r.v, $(X,Y)$ with joint density: $\prob(X\in A, Y\in B) =\int_{A\times B} f(x,y) \diff x\diff y$ \\Define:
+\begin{equation*}
+    h(x,y) = \begin{cases}
+    \frac{f(x,y)}{\int_\R f(x,z) \diff z} \quad &f_X(x) = \int f(x,z)\diff z >0 \\
+    g(y) \quad &f_X(x) = 0
+    \end{cases}
+\end{equation*}
+$g$ is any density. Then $\mu(B,x)= \int_B h(x,y) \diff y$ 
+\begin{equation*}
+    \prob_{Y,\sigma(X)} (B,\omega) = \prob(Y\in B|\sigma(X))(\omega) = \mu(B, X(\omega))
+\end{equation*}
+
+
+
+
+\newpage
+\section{Discrete time martingales}
+\subsection*{Discrete time stochastic process}
+
+$\{X_n, n\geq 0\}$ discrete time stochastic process
+\begin{example}
+Consider coin tossing on infinite time horizon: Let $\Omega = \{0,1\}^\N, N = \{1,2,3,...\}, \omega\in\Omega, \omega = (\omega_1, \omega_2, ...)$ with $\omega_n = 0/1$
+Fix $n\geq 1,i_1,i_2, ... = 0/1$ and $p \in (0,1)$ \\
+Consider cylinders (up to time n) $C(i_1, ..., i_n) = \{\omega\in\Omega, \omega_k = i_k, k\leq n\}$ \\
+Then everything is finite and nice:
+$\F_n = \sigma(C(i_1, ..., i_n)), \prob_n$ defined on $\F_n$ as:
+\begin{equation*}
+    \prob_n(C(i_1, ..., i_n)) = p^{\bigs{k}i_k}\cdot (1-p)^{n-\bigs{k}i_k}
+\end{equation*}which is well-defined probability
+\end{example}
+
+\begin{rem}
+$\Omega = \{0,1\}^\N$ is uncountable, same cardinality as $[0,1]\in\R$ hence $\prob(\{\omega\}) = 0$ (This also makes sense as p <1 and infinite sequence)
+\begin{enumerate}
+    \item $F_n \subset \F_{n+1}$ and $\prob_{n+1}(A)= \prob_n(A), A\in \F_n$
+    \item $A\in\bigu{n}F_n$ be algebra but not $\sigma$-algebra
+    \item Define $\F := \sigma(\bigu{n}F_n)$ and extend probability uniquely to this sigma algebra as $\prob(A) := \prob_n(A), A\in\F_n$
+\end{enumerate}
+\end{rem}
+\vspace{2cm}
+\begin{dfn}[Filtration] Let $(\Omega, \F)$ be mesurable space, A family of $\sigma$-algebra $\F_n, n\geq 0$ is a filtration if:
+\begin{enumerate}
+    \item $\F_n\subset\F_, n\geq 0$
+    \item $\F_n \subset \F_{n+1}, n\geq 0$
+\end{enumerate}
+\end{dfn}
+\textbf{Notice: This is known as information available at time n}
+\begin{example}
+Let $(\Omega, \F)$ be mesurable space define $X_n, n\geq 0$ r.v on measurable set, $\F_n := \sigma(X_1, ..., X_n)$ is a natural filtration.
+\end{example}
+
+\newpage
+\subsection*{Stopping times}
+\begin{dfn}[Stopping times]
+Let $(\Omega, \F)$ be mesurable space and $(\F_n)$ be filtration. An random variable $\tau: \Omega \mapsto \{0,1,2, ..., \infty\}$ is a stopping time if:
+\begin{equation*}
+    \forall n\geq 0 \qquad \{\tau \leq n \in \}\F_n
+\end{equation*}
+\end{dfn}
+
+\begin{rem}
+The above definition is equivalent to 
+\begin{equation*}
+    \forall n\geq 0 \qquad \{\tau = n \in \}\F_n
+\end{equation*}
+\pf:
+\vspace{4cm}
+\end{rem}
+\begin{lem}
+Let $(\Omega, \F, (\F_n))$ be given $\tau_1, \tau_2$ be stopping times defined above. Then:
+\begin{enumerate}
+    \item $\tau_1\wedge \tau_2$ and $\tau_1\vee \tau_2$ are stopping times
+    \item $\forall n_0 \geq 1, \tau_0 := n_0$ being constant. $\tau_0$ is a stopping time
+\end{enumerate}
+\end{lem}
+\pf 
+\vspace{8cm}
+\begin{dfn}[Adapted process] $(X_n)$ is an adapted sequence/process if $\forall n, X_n \in \F_n$ that is $\F_n$ measurable. Denote the pair: $(X_n, \F_n)$
+
+\end{dfn}
+\newpage
+\begin{dfn}[First hitting time]
+Let $B\in \B(\R)$ be Borel set, and let $(X_n, \F_n)$ be given, Define first hitting time: 
+\begin{equation*}
+    \tau_B := \inf \{n\geq 0, X_n\in B\}
+\end{equation*}
+\end{dfn}
+\textbf{Claim:} First hitting time is a stopping time \\
+\pf \vspace{4cm}
+
+Then we consider $\F_\tau$.
+\begin{dfn}
+$A\in \F_\tau$ if $A\in \F$ being measurable and 
+\begin{align*}
+    \forall n\quad A\cap \{\tau \leq n\} \in \F_n \\
+    \intertext{or}
+    \forall n \quad A\cap \{\tau = n\} \in \F_n
+\end{align*}
+\end{dfn}
+\begin{thm}
+Consider $\F_\tau$
+\begin{enumerate}
+    \item $\F_\tau$ is a $\sigma$-algebra
+    \item $A\in \F_\tau$ iff $A\cap \{\tau = n\}\in \F_n, \forall n$
+    \item $\tau_1 \leq \tau_2$ both being stopping time, then $\F_{\tau_1}\subset \F_{\tau_2}$
+\end{enumerate}
+\end{thm}
+\pf
+
+\vfill
+Let $(X_n, \F_n)$ be given, $\tau$-stopping time Then $X_\tau\I_{\{\tau < \infty\}}$ is an random variable \\
+\pf 
+\begin{equation*}
+    X_\tau\I_{\{\tau < \infty\}} = \bigs{n=0}^\infty X_n \I_{\{\tau =n\}}
+\end{equation*}Since $X_n$ is adapted, $X_n\in \F_n$, $\{\tau = n\} \in \F_n \implies \I_{\{\tau =n\}} \in \F_n$ Hence it is $\F$-measurable. \\
+$\tau$ is $\F_\tau$ measurable, this is trivial by definition.
+
+\newpage 
+\subsection{Martingales}
+\begin{dfn}[Martingale] $(\Omega, \F, (\F_n), \prob)$ stochastic basis given, A stochastic process $\{X_n, n\geq 0\}$ is a martingale if 
+\begin{enumerate}
+    \item $(X_n)$ is $(F_n)$ adapted, that is $X_n\in\F_n$
+    \item $\E|X_n| < \infty, \forall n$
+    \item $\forall n\geq m\geq 0$
+    \begin{equation*}
+        X_m = \E(X_n| \F_m)
+    \end{equation*}
+    \begin{enumerate}
+        \item (Supermartingale) $\forall n\geq m\geq 0$
+        \begin{equation*}
+        X_m \geq \E(X_n| \F_m)
+    \end{equation*}
+    \item (Submartingale) $\forall n\geq m\geq 0$
+        \begin{equation*}
+        X_m \leq \E(X_n| \F_m)
+    \end{equation*}
+    \end{enumerate}
+\end{enumerate}
+\end{dfn}
+\begin{lem}
+$(\Omega, \F, (\F_n), \prob)$ stochastic basis given, A stochastic process $\{X_n, n\geq 0\}$ is a martingale iff $1, 2$ above holds plus: 
+\begin{equation*}
+    \E(X_{n+1}|\F_n) = \E(X_n) \qquad \forall n
+\end{equation*}
+\end{lem}
+\pf By induction
