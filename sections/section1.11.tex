@@ -1,0 +1,286 @@
+\newpage
+\section{Discrete time martingales}
+\subsection*{Discrete time stochastic process}
+
+$\{X_n, n\geq 0\}$ discrete time stochastic process
+\begin{example}
+Consider coin tossing on infinite time horizon: Let $\Omega = \{0,1\}^\N, N = \{1,2,3,...\}, \omega\in\Omega, \omega = (\omega_1, \omega_2, ...)$ with $\omega_n = 0/1$
+Fix $n\geq 1,i_1,i_2, ... = 0/1$ and $p \in (0,1)$ \\
+Consider cylinders (up to time n) $C(i_1, ..., i_n) = \{\omega\in\Omega, \omega_k = i_k, k\leq n\}$ \\
+Then everything is finite and nice:
+$\F_n = \sigma(C(i_1, ..., i_n)), \prob_n$ defined on $\F_n$ as:
+\begin{equation*}
+    \prob_n(C(i_1, ..., i_n)) = p^{\bigs{k}i_k}\cdot (1-p)^{n-\bigs{k}i_k}
+\end{equation*}which is well-defined probability
+\end{example}
+
+\begin{rem}
+$\Omega = \{0,1\}^\N$ is uncountable, same cardinality as $[0,1]\in\R$ hence $\prob(\{\omega\}) = 0$ (This also makes sense as p <1 and infinite sequence)
+\begin{enumerate}
+    \item $F_n \subset \F_{n+1}$ and $\prob_{n+1}(A)= \prob_n(A), A\in \F_n$
+    \item $A\in\bigu{n}F_n$ be algebra but not $\sigma$-algebra
+    \item Define $\F := \sigma(\bigu{n}F_n)$ and extend probability uniquely to this sigma algebra as $\prob(A) := \prob_n(A), A\in\F_n$
+\end{enumerate}
+\end{rem}
+\vspace{2cm}
+\begin{dfn}[Filtration] Let $(\Omega, \F)$ be mesurable space, A family of $\sigma$-algebra $\F_n, n\geq 0$ is a filtration if:
+\begin{enumerate}
+    \item $\F_n\subset\F_, n\geq 0$
+    \item $\F_n \subset \F_{n+1}, n\geq 0$
+\end{enumerate}
+\end{dfn}
+\textbf{Notice: This is known as information available at time n}
+\begin{example}
+Let $(\Omega, \F)$ be mesurable space define $X_n, n\geq 0$ r.v on measurable set, $\F_n := \sigma(X_1, ..., X_n)$ is a natural filtration.
+\end{example}
+
+\newpage
+\subsection*{Stopping times}
+\begin{dfn}[Stopping times]
+Let $(\Omega, \F)$ be mesurable space and $(\F_n)$ be filtration. An random variable $\tau: \Omega \mapsto \{0,1,2, ..., \infty\}$ is a stopping time if:
+\begin{equation*}
+    \forall n\geq 0 \qquad \{\tau \leq n \in \}\F_n
+\end{equation*}
+\end{dfn}
+
+\begin{rem}
+The above definition is equivalent to 
+\begin{equation*}
+    \forall n\geq 0 \qquad \{\tau = n \in \}\F_n
+\end{equation*}
+\pf:
+\vspace{4cm}
+\end{rem}
+\begin{lem}
+Let $(\Omega, \F, (\F_n))$ be given $\tau_1, \tau_2$ be stopping times defined above. Then:
+\begin{enumerate}
+    \item $\tau_1\wedge \tau_2$ and $\tau_1\vee \tau_2$ are stopping times
+    \item $\forall n_0 \geq 1, \tau_0 := n_0$ being constant. $\tau_0$ is a stopping time
+\end{enumerate}
+\end{lem}
+\pf 
+\vspace{8cm}
+\begin{dfn}[Adapted process] $(X_n)$ is an adapted sequence/process if $\forall n, X_n \in \F_n$ that is $\F_n$ measurable. Denote the pair: $(X_n, \F_n)$
+
+\end{dfn}
+\newpage
+\begin{dfn}[First hitting time]
+Let $B\in \B(\R)$ be Borel set, and let $(X_n, \F_n)$ be given, Define first hitting time: 
+\begin{equation*}
+    \tau_B := \inf \{n\geq 0, X_n\in B\}
+\end{equation*}
+\end{dfn}
+\textbf{Claim:} First hitting time is a stopping time \\
+\pf \vspace{4cm}
+
+Then we consider $\F_\tau$.
+\begin{dfn}
+$A\in \F_\tau$ if $A\in \F$ being measurable and 
+\begin{align*}
+    \forall n\quad A\cap \{\tau \leq n\} \in \F_n \\
+    \intertext{or}
+    \forall n \quad A\cap \{\tau = n\} \in \F_n
+\end{align*}
+\end{dfn}
+\begin{thm}
+Consider $\F_\tau$
+\begin{enumerate}
+    \item $\F_\tau$ is a $\sigma$-algebra
+    \item $A\in \F_\tau$ iff $A\cap \{\tau = n\}\in \F_n, \forall n$
+    \item $\tau_1 \leq \tau_2$ both being stopping time, then $\F_{\tau_1}\subset \F_{\tau_2}$
+\end{enumerate}
+\end{thm}
+\pf
+
+\vfill
+Let $(X_n, \F_n)$ be given, $\tau$-stopping time Then $X_\tau\I_{\{\tau < \infty\}}$ is an random variable \\
+\pf 
+\begin{equation*}
+    X_\tau\I_{\{\tau < \infty\}} = \bigs{n=0}^\infty X_n \I_{\{\tau =n\}}
+\end{equation*}Since $X_n$ is adapted, $X_n\in \F_n$, $\{\tau = n\} \in \F_n \implies \I_{\{\tau =n\}} \in \F_n$ Hence it is $\F$-measurable. \\
+$\tau$ is $\F_\tau$ measurable, this is trivial by definition.
+
+\newpage 
+\subsection{Martingales}
+\begin{dfn}[Martingale] $(\Omega, \F, (\F_n), \prob)$ stochastic basis given, A stochastic process $\{X_n, n\geq 0\}$ is a martingale if 
+\begin{enumerate}
+    \item $(X_n)$ is $(F_n)$ adapted, that is $X_n\in\F_n$
+    \item $\E|X_n| < \infty, \forall n$
+    \item $\forall n\geq m\geq 0$
+    \begin{equation*}
+        X_m = \E(X_n| \F_m)
+    \end{equation*}
+    \begin{enumerate}
+        \item (Supermartingale) $\forall n\geq m\geq 0$
+        \begin{equation*}
+        X_m \geq \E(X_n| \F_m)
+    \end{equation*}
+    \item (Submartingale) $\forall n\geq m\geq 0$
+        \begin{equation*}
+        X_m \leq \E(X_n| \F_m)
+    \end{equation*}
+    \end{enumerate}
+\end{enumerate}
+\end{dfn}
+\begin{lem}
+$(\Omega, \F, (\F_n), \prob)$ stochastic basis given, A stochastic process $\{X_n, n\geq 0\}$ is a martingale iff $1, 2$ above holds plus: 
+\begin{equation*}
+    \E(X_{n+1}|\F_n) = \E(X_n) \qquad \forall n
+\end{equation*}
+\end{lem}
+\pf By induction
+
+\newpage
+\begin{example}
+$\xi_k, k\geq 1$ be independent and $\E|\xi_k|<\infty, \E(\xi_k) = 0$ Define initial value $X_0 = x \in \R, X_n := x + \bigs{i=1}^n \xi_i$, $\F_0 = \{\emptyset,\Omega\}, \F_n = \sigma(\xi_1, ..., \xi_n), n\geq 1$
+\end{example}
+Claim: This $X_n$ is martingale
+\begin{enumerate}
+    \item $\xi_k \in \F_k, \forall k\leq n, \F_k \subset \F_n\implies x + \bigs{i=1}^n \xi_i \in \F_n $, Adapted
+    \item $\E|X_n| \leq |x| + \bigs{i=1}^n \E|\xi_i| < \infty,\forall n$
+    \item Martingale property:
+    \begin{equation*}
+        \E(X_{n+1}|\F_n) = \E(X_{n} +\xi_{n+1}|\F_n) = \E(X_{n}|\F_n) +\E(\xi_{n+1}|\F_n) = X_{n} + \E(\xi_{n+1}) = X_{n}
+    \end{equation*}
+\end{enumerate}
+\vspace{2cm}
+\begin{example}[Levy martingale]
+Let $X$ be R.V with $\E|X|<\infty, (\F_n)$ filtration Define \begin{equation*}
+    M_n := \E(X | \F_n)
+\end{equation*}
+Claim: This $M_n$ is martingale
+\begin{enumerate}
+    \item By definition of conditional distribution.
+    \item $\E|M_n| =\E|\E(X | \F_n)| \leq \E(\E(|X| | \F_n)) = \E|X| < \infty$
+    \item Martingale property:
+    \begin{equation*}
+        \E(M_{n+1}|\F_n) = \E(\E(X |\F_{n+1})|\F_n) = \E(X|\F_n) = X_{n}
+    \end{equation*}
+\end{enumerate}
+\end{example}
+\vspace{2cm}
+\begin{prop}
+Let $(X_n, \F_n)$ be a martingale, $p \geq 1, \E|X_n|^p < \infty, \forall n$ Then the pair $(|X_n|^p, \F_n)$ is a submartingale.
+\end{prop}
+\pf
+\newpage
+$(X_n, \F_n)$ be submartingale $\tau$ stopping time then stopped process:
+\begin{equation*}
+    Y_n = X_{\tau \wedge n}
+\end{equation*}and $(Y_n, \F_n)$ is a submartingale
+\pf\vspace{10cm}
+
+\begin{thm}[Doob/ Optional Stopping Theorem]
+\label{Doob} Let $(X_n, \F_n)$ be a martingale, $\tau_i, i=1,2$ be stopping times Assume
+\begin{enumerate}
+    \item $\prob(\tau_1 \leq \tau_2 < \infty) = 1$
+    \item $\E|X_{\tau_i}| < \infty$
+    \item $\linf{n\rightarrow \infty} \E[|X_n|\I_{\tau_i > n}] = 0, i=1,2$
+\end{enumerate}Then 
+\begin{equation*}
+    \E(X_{\tau_2}|\F_{\tau_1}) = X_{\tau_1}
+\end{equation*}
+\end{thm}
+\pf
+\newpage
+Consider conditions in Doob Theorem \ref{Doob} $\linf{n\rightarrow \infty} \E[|X_n|\I_{\tau_i > n}] = 0, i=1,2$ and $\E|X_{\tau_i}| < \infty$ We provide few sufficient conditions for (2) and (3) here:
+\begin{enumerate}
+    \item If $\exists K>0$ s.t.\begin{equation*}
+        \prob(\tau_1 \leq K) = \prob(\tau_2 \leq K) = 1
+    \end{equation*}
+    \pf \vspace{4cm}
+    \item If $\exists c >0 $ s.t. $\forall n, \prob(|X_n| \leq c) = 1$ \\
+    \pf
+    \begin{equation*}
+    \E|X_{\tau_i}| < c < \infty, \E[|X_n|\I_{\tau_i > n}] \leq c\prob(\tau_i > n) \xrightarrow{n\rightarrow \infty} 0
+    \end{equation*}
+    \item If $\exists c >0 $ s.t. 
+    \begin{enumerate}
+        \item $\E(\abs{X_{n+1} - X_n} \big|\F_n) \leq c$ a.s.
+        \item $\E[\tau_i] < \infty$
+    \end{enumerate} 
+\end{enumerate}
+
+\begin{rem}[Tail probability] Let $X \geq 0$
+\begin{enumerate}
+    \item $\E(X) = \int_0^\infty \prob(X > t) \diff t$
+    \item If $X$ takes value $0,1,...$ then $\E(X) = \bigs{n=0}^\infty \prob(X > n)$
+\end{enumerate}
+
+\end{rem}
+\pf
+\newpage
+\begin{example}
+$S_0 = x, S_n = x + \xi_1 +... +\xi_n$ with $\prob(\xi_k = \pm 1) = \frac{1}{2}$ being independent random variables also $\E(\xi_k) = 0$. $\F_n = \sigma(\xi_1, ..., \xi_n)$, then $(S_n, \F_n)$ is martingale. \\
+Assume $0 < x<a$ and define stopping time $\tau_a = \inf \{n\geq 0, S_n = a \text{ or } S_n = 0\}, \tau_0 = 0$ as constant \\[0.5cm]
+\textbf{Check:} $\E(|S_{n+1}-S_n|\big| \F_n) = 1$ given by the jump size. $\E(\tau_a) < \infty$ is shown below. By previous theorem, we have $\E(X_{\tau_a}) = x$ Since  $\E(\tau_a) < \infty$, this game will end eventually then we have following:
+\begin{align*}
+    \E(S_{\tau_a}) =0 \cdot \prob(S_{\tau_a} = 0) + a\prob(S_{\tau_a} = a) = x \\
+    \prob(S_{\tau_a} = a) = \frac{x}{a}, \prob(S_{\tau_a} = 0) = \frac{a-x}{a}
+\end{align*}
+\end{example}
+
+\textbf{Claim: $\E(\tau_a) < \infty$} \\
+Fix $m\geq 1$ Define $A_m := \{\xi_{m+1} = 1, ..., \xi_{m+a} = 1\}$ Then by $\prob(A_m) = (\frac{1}{2})^a$ by independency.
+\begin{align*}
+    \{\tau > ma\} &\subset \bigi{k=0}^{m-1} A_K^c \\
+    \prob(\tau > ma) &\leq \prob(\bigi{k=0}^{m-1} A_K^c) \\
+    &= \bigp{k=0}^{m-1} \prob(A_K^c) = (1-(\frac{1}{2})^a)^m 
+    \intertext{Denote $q := 1-(\frac{1}{2})^a$, $q \in (0,1)$}
+    \prob(\tau > ma) &\leq q^m \\
+    \E(\tau) &= \bigs{j=1}^\infty \prob(\tau > j) = \bigs{m}\bigs{i=1}^{a-1}\prob(\tau > ma+i) \\
+    &\leq \bigs{m} a\prob(\tau > ma) \leq a \bigs{m} q^m < \infty
+\end{align*}
+
+\begin{rem}Also note the following:
+\begin{enumerate}
+    \item We could show stronger version: $\forall N\geq 1, \E(\tau^N)< \infty$ 
+    \begin{align*}
+        \E(\tau^N) &= N\int_0^\infty t^{N-1} \prob(X > t) \diff t \\
+        &\leq N \bigs{n}\int_n^{n+1} (n+1)^N \prob(X > t) \diff t \\
+        &\leq N\bigs{n} (n+1)^N \prob(X > t) \int_n^{n+1} \diff t \\
+        &\leq N\bigs{n} (n+1)^N q^n <\infty
+    \end{align*}
+    \item This example makes sense, as the winning rate is $\frac{x}{a}$ which is the relative distance between upper bound and starting value.
+\end{enumerate}
+\end{rem}
+\newpage
+Now we know $\E(\tau_a) < \infty$ but what is exactly the value is? What is the mean time to end the game? i.e. $\E(\tau_a) =?$ \\
+Construction: $M_n = S_n^2 - n$, claim: This is a martingale.
+\begin{enumerate}
+    \item $\F_n$ adapted, obvious.
+    \item $\E\abs{M_n} \leq \E(S_n^2) + n < \infty$
+    \item $M_{n+1} = (S_n + \xi_{n+1})^2 -n -1 = M_n + 2\xi_{n+1}S_n + \xi_{n+1}^2 -1$ 
+    \begin{equation*}
+        \E(M_{n+1} |\F_n) = \E(M_n + 2\xi_{n+1}S_n + \xi_{n+1}^2 -1|\F_n) = M_n + 1 -1 = M_n
+    \end{equation*}
+\end{enumerate}
+Next, we use Doob's theorem \ref{Doob} 
+\begin{enumerate}
+    \item $\E\abs{M_{\tau_a}} \leq \E(S_{\tau_a}^2) + \E(\tau) <\infty$
+    \item WTS: $\linf{n\rightarrow \infty} \E[|M_n|\I_{\tau_a > n}] = 0$
+    \begin{align*}
+        \E(\abs{M_n}\I_{\tau_a > n}) &\leq \E(S_n^2\I_{\tau_a > n}) + \E(n\I_{\tau_a > n}) \leq \E(S_n^2\I_{\tau_a > n}) + \E(\tau_a\I_{\tau_a > n}) \\
+        \intertext{($S_n \leq a\implies S_n^2 \leq a^2$)}
+        &\leq a^2 \prob(\tau_a > n) + \E(\tau_a\I_{\tau_a > n})
+        \intertext{Passing limit and consider first half:}
+        & \linf{n\rightarrow \infty} a^2 \prob(\tau_a > n) \xrightarrow{n\rightarrow \infty} 0
+        \intertext{Second half:}
+        0 \leq \tau_a\I_{\tau_a > n} \leq \tau, \E(\tau) <\infty \\
+       \linf{n\rightarrow \infty}\E(\tau_a\I_{\tau_a > n}) = \biglim{n}\E(\tau_a\I_{\tau_a > n}) &\stackrel{DCT }{=}  \E(\tau_a\biglim{n} \I_{\tau_a > n})\xrightarrow{n\rightarrow \infty} 0
+    \end{align*}Then we have desired result.
+    \item $\E\abs{M_{0}} \leq x^2 <\infty$
+    \item $\linf{n\rightarrow \infty} \E[|M_n|\I_{\tau > n}] = 0$ = $\linf{n\rightarrow \infty} \E[|M_n|\I_{0 > n}] = 0$
+\end{enumerate}
+By Doob's theorem $(\tau_1 = 0, \tau_a)$
+\begin{align*}
+    \E(M_{\tau_a}) = \E(M_0) = x^2 \implies &\E(S_{\tau_a}^2 ) -\E(\tau) = x^2 \implies a^2 \prob(S_{\tau_a} =a) -\E(\tau) = x^2 \\
+    &\implies \E(\tau) = x(a-x)
+\end{align*}
+
+\begin{rem}
+Still coin-tossing, but we remove lower bound of stopping time: now $\tau := \inf\{n\geq 1, S_n = x+1\}$ the rest settings stay the same.$\prob(\tau < \infty)=1$, $\E[\abs{S_{n+1}-S_n}\big| \F_n] = 1$. Assume $\E(\tau) <\infty$ Then by Doob's theorem \ref{Doob}
+\begin{equation*}
+    \E(S_\tau) = \E(S_0) = x \implies x+1 = x
+\end{equation*}Contraction, hence the assumption is not true, that is: $\E(\tau) =\infty$
+\end{rem}
