@@ -39,14 +39,14 @@ Let $(\Omega, \F)$ be mesurable space define $X_n, n\geq 0$ r.v on measurable se
 \begin{dfn}[Stopping times]
 Let $(\Omega, \F)$ be mesurable space and $(\F_n)$ be filtration. An random variable $\tau: \Omega \mapsto \{0,1,2, ..., \infty\}$ is a stopping time if:
 \begin{equation*}
-    \forall n\geq 0 \qquad \{\tau \leq n \in \}\F_n
+    \forall n\geq 0 \qquad \{\tau \leq n  \}\in\F_n
 \end{equation*}
 \end{dfn}
 
 \begin{rem}
 The above definition is equivalent to 
 \begin{equation*}
-    \forall n\geq 0 \qquad \{\tau = n \in \}\F_n
+    \forall n\geq 0 \qquad \{\tau = n  \}\in\F_n
 \end{equation*}
 \pf:
 \vspace{4cm}
@@ -284,3 +284,302 @@ Still coin-tossing, but we remove lower bound of stopping time: now $\tau := \in
     \E(S_\tau) = \E(S_0) = x \implies x+1 = x
 \end{equation*}Contraction, hence the assumption is not true, that is: $\E(\tau) =\infty$
 \end{rem}
+\newpage
+
+\begin{thm}[Maximal inequality]
+\label{Maxinequal}
+Let $(X_n, \F_n)$ be a submartingale, Then
+\begin{equation*}
+    \prob(\max\limits_{k\leq n} X_k > r) \leq \frac{1}{r} \E\abs{X_n} \qquad \forall r>0
+\end{equation*}
+\end{thm}
+\pf \vspace{10cm}
+\begin{example}
+$X_n := \bigs{k=1}^m \xi_k, \E(\xi_k) = 0, \xi_k$ be independent. Then $(X_n, \F_n)$ is a martingale with $\F_n = \sigma(\xi_1, ..., \xi_n)$ \\
+\textbf{Note: } If $\R \mapsto \R$ is convex and $\E\abs{f(X_n)} < \infty$ then $(f(X_n), \F_n)$ is a submartingale. \\
+Let $f(t) = t^2, \E(\xi_k^2)<\infty$ Then apply previous theorem \ref{Maxinequal} we have 
+\begin{align*}
+    \prob(\max\limits_{k\leq n} \abs{\xi_1 + ,,, + \xi_k} > r) = \prob(\max\limits_{k\leq n} |X_k| > r) = \prob(\max\limits_{k\leq n} X_k^2 > r^2) &\leq \frac{1}{r^2}\E(X_n^2) = \frac{1}{r^2}\bigs{k=1}^n \E(\xi_k^2) \\
+    \implies \prob(\max\limits_{k\leq n} \abs{\xi_1 + ,,, + \xi_k} > r) &\leq \frac{1}{r^2}\bigs{k=1}^n \E(\xi_k^2)
+\end{align*}
+\end{example}
+
+\newpage
+\begin{dfn}[Predictable] Let $\F_n$ be filtration, sequence of random variables $(\alpha_n)$ is called predictable if  $\F_{n-1}$-measurable. i.e.
+\begin{equation*}
+    \alpha_n \in \F_{n-1}
+\end{equation*}
+\end{dfn}
+\begin{example}
+Let $(M_n, \F_n)$ be a martingale, let $(\alpha_n, \F_n)$ be predictable. Define \begin{equation*}
+    X_n = \bigs{k=1}^n \alpha_n (M_k - M_{k-1})
+\end{equation*}Assume $\exists c >0, \prob(|\alpha_k| \leq c) = 1, \forall k$ Then: $M_n$ is martingale $\implies X_n$ martingale under $\F_n$
+\begin{enumerate}
+    \item $\E\abs{X_n} \leq c\bigs{k=1}^n \abs{M_k - M_{k-1}} \leq c\bigs{k=1}^n \abs{M_k}+ \abs{M_{k-1}} \leq \infty$
+    \item $X_n\in\F_n$
+    \item $X_{n+1}-X_n = \alpha_{n+1}(M_{n+1}-M_n), \alpha_{n+1}\in\F_n$
+    \begin{equation*}
+        \E(X_{n+1}-X_n|\F_n) = \alpha_{n+1}\E((M_{n+1}-M_n) |\F_n) = 0
+    \end{equation*}
+\end{enumerate}
+
+\end{example}
+\newpage
+\subsection{Convergence with stopping time}
+
+Consider $x_0 = 0$ Fix $a,b\in\R, a<b$ and Define:
+\begin{align*}
+    \tau_0 &= \inf\{n\geq 0, x_n < a\} \\
+    \tau_1 &= \inf\{n > \tau_0, x_n > b\} \\
+    \tau_2 &= \inf\{n > \tau_1, x_n < a\} \\
+    ...\\
+    \tau_{2k} &= \inf\{n > \tau_{2k-1}, x_n < a\} \\
+    \tau_{2k+1} &= \inf\{n > \tau_{2k}, x_n > b\}
+    \intertext{Define number of upcrossing of $(a,b)$ }
+    u_a^b &= \begin{cases}
+    \sup\{k\geq 1, \tau_{2k-1} <\infty\} & \tau_1 < \infty \\
+    0 &\tau_1 = \infty
+    \end{cases}
+\end{align*}
+\begin{lem}
+Let $(x_n)$ converges (perhaps $\infty$) iff $\uab <\infty$ for every pair of rationals $a<b$
+\end{lem}
+\pf \begin{enumerate}
+    \item $\implies$ Proof by contradiction \\
+    Assume $\exists a,b\in \Q$ s.t. $\uab = \infty$ then we define two subsequences $\{x_{\tau_{2k}}, k\geq 1\},\{x_{\tau_{2k+1}}, k\geq 1\}$, the distance between two subsequences are always larger than $b-a$ then limit does not exists
+    \item $\impliedby$ Proof by contrapositive statement. \\
+    If $x_n$ is not convergent then $\exists a,b\in \Q, a<b$ s.t. 
+    \begin{equation*}
+        \linf{n} x_n < a<b<\lsup{n} x_n
+    \end{equation*}Then exists subsequences $(k_n, l_n)$ s.t. $x_{k_n} < a, x_{l_n} > b$ define:
+    \begin{align*}
+    \tau_0 &= \inf\{k_n, x_{k_n} < a\} \\
+    \tau_1 &= \inf\{l_n > \tau_0, x_{l_n} > b\} \\
+    ...\\
+    \uab &= \infty
+\end{align*}
+\end{enumerate}
+\qed
+\begin{lem}[Upcrossing lemma] Let $(X_n, \F_n)$ be a supermartingale and define \begin{equation*}
+    \uab(m) :=\text{ number of upcrossing before time }m
+\end{equation*}Then $\forall a<b$
+\begin{equation*}
+    \E(\uab(m)) \leq \frac{1}{b-a} \E(X_m -a)^-
+\end{equation*}
+
+\end{lem}
+\pf 
+
+\newpage
+\begin{thm}[(Super) Martingale Convergence theorem]
+\label{SMCT}
+Let $(X_n, \F_n)$ be a supermartingale assume
+\begin{equation*}
+    \sup\limits_n \E[X_n^-] < \infty
+\end{equation*}Then there exists a r.v. $X_\infty$ s.t.
+\begin{enumerate}
+    \item $\E\abs{X_\infty} <\infty$
+    \item $\biglim{n} X_n = X_\infty$ a.s.
+\end{enumerate}
+\end{thm}
+\pf \vfill
+\begin{cor} Every non-negative supermartingale converges
+\begin{equation*}
+    \sup\limits_n \E[X_n^-] = 0 < \infty
+\end{equation*}
+\end{cor}
+\begin{cor}If $(X_n, \F_n)$ is a submartingale and \begin{equation*}
+    \sup\limits_n \E[X_n^+] < \infty
+\end{equation*} Then $\E\abs{X_\infty} <\infty$ and $\biglim{n} X_n = X_\infty$ a.s.
+\end{cor}
+\pf Consider $(-X_n, \F_n)$ be supermartingale. $\sup\limits_n \E[(-X_n)^-] =\sup\limits_n \E[(X_n)^+]  < \infty$
+    
+Then every thing follows
+\begin{example}
+Given $X\in \ls{1}$ be r.v. Consider Levy martingale $M_n = \E(X|\F_n)$
+\begin{equation*}
+    \sup\limits_n \E[M_n^-] = \sup\limits_n \E[\E(X|\F_n)^-] \stackrel{\text{Jensen}}{\leq} \sup\limits_n \E[\E(X^-|\F_n)] = \E[X^-] \leq\E\abs{X} <\infty
+\end{equation*}Then $M_n \rightarrow M_\infty $ a.s. and $\E(M_\infty)<\infty$
+\end{example}
+\newpage \textbf{Question: When does the expectation also converge? i.e.}  \begin{equation*}
+    \biglim{n}\E(X_n) =  \E(X_\infty)
+\end{equation*}
+\textbf{Answer: we need uniform integrability}
+
+\subsection{Uniform integrability}
+\begin{dfn}[Uniform integrability]
+A family of r.vs $\{X_\alpha; \alpha\in A\}$ is uniform integrability if 
+\begin{equation*}
+    \adjustlimits\lim_{c\rightarrow \infty} \sup_{\alpha\in A}\E[\abs{X_\alpha} \I_{(\abs{X_\alpha > c})}] =0
+\end{equation*}
+\end{dfn}
+
+\begin{example}
+If $\abs{X_n} \leq Y, \E[Y] < \infty$ Then
+\begin{equation*}
+    \sup\limits_{\alpha\in A}\E[\abs{X_\alpha} \I_{(\abs{X_\alpha > c})}] \leq  \E[Y \I_{(Y > c)}] \xrightarrow{c\rightarrow \infty} 0
+\end{equation*}
+\textbf{Special case:} $\E\abs{X_k} < \infty, k = 1,...,n$ Then the family $\{X_k; k\leq n\}$ is uniform integrability \\
+\pf Define $Y:= \bigs{k=1}^n \abs{X_k}$
+\end{example}
+\vspace{1cm}
+\begin{prop} $\{X_\alpha; \alpha\in A\}$ is uniform integrable iff
+\begin{enumerate}
+    \item $\supunder{\alpha} \E\abs{X_\alpha} < \infty$
+    \item $\forall \epsilon >0,\exists \delta>0 $ s.t. if $\prob(A)<\delta $ then \begin{equation*}
+        \supunder{\alpha} \E[\abs{X_\alpha}\I_A] < \epsilon
+    \end{equation*}
+\end{enumerate}
+\end{prop}
+\begin{cor}
+    $\{X_n; n\geq1 \}$ r.vs assume that for a certain $p >1$\begin{equation*}
+        M = \supunder{n} \E\abs{X_\alpha}^p < \infty
+    \end{equation*} then $\{X_n; n\geq1 \}$ is uniform integrable
+\end{cor}
+
+\newpage
+\pf
+\newpage
+\begin{thm}
+If $X_n \xrightarrow{\ls{1}} X$ then $\{X_n, n\in \N \}$ is uniform integrable.
+\end{thm}
+\vspace{12cm}
+\begin{thm}
+If $\{X_n, n\in \N \}$ is uniform integrable and $X_n \xrightarrow{\prob} X$ then $X_n \xrightarrow{\ls{1}} X$
+\end{thm}\pf
+
+\newpage
+\begin{lem}
+    Let $\E\abs{X} < \infty, \{\F_\alpha, \alpha\in A\}$ be family of $\sigma$-algebra then \begin{equation*}
+        \{\E(X|\F_\alpha); \alpha\in A\}
+    \end{equation*} is uniform integrable
+\end{lem}
+
+\newpage
+\begin{thm}
+Let $(X_n, \F_n)$ be uniform integrable submartingale, then there exists a r.v. $X$ s.t.\begin{enumerate}
+    \item $X_n \xrightarrow{a.s.} X$
+    \item $X_n \xrightarrow{\ls{1}} X$
+    \item If $(X_n, \F_n)$ is martingale then we may extend the definition of martingale to infinity: \begin{equation*}
+        X_n = \E(X|\F_n); \quad X = X_\infty
+    \end{equation*}
+\end{enumerate}
+\end{thm}
+\pf
+\newpage
+\subsection{Backward martingale}
+Let $\{\F_{-n}; n\geq 0\}$ be filtration s.t. \begin{equation*}
+    \F_{-n-1} \subset \F_{-n} 
+\end{equation*} An adapted process $(X_{-n}, \F_{-n})$ is a backward martingale if \begin{enumerate}
+    \item Adapted: $X_{-n} \in \F_{-n}$
+    \item $\E\abs{X_{-n}} <\infty$
+    \item Martingale property: 
+    \begin{equation*}
+        X_{-n-1} = \E(X_{-n}|\F_{-n-1})
+    \end{equation*}
+\end{enumerate}
+
+\begin{thm}[Backward martingale convergence theorem]
+\label{BMCT} Let $(X_{-n}, \F_{-n})$ be a backward martingale and let $\F_{-\infty} = \bigi{n=0}^\infty \F_{-n}$ then there exists $X_{-\infty}$ \begin{enumerate}
+    \item $X_{-\infty} = \biglim{n\rightarrow \infty} X_{-n}$ a.s.
+    \item $X_{-n} \xrightarrow{\ls{1}} X_{-\infty}$
+    \item $X_{-\infty} = \E(X_0 | \F_{-\infty})$
+\end{enumerate}
+\begin{equation*}
+     \qquad 
+\end{equation*}
+
+\begin{rem}
+No assumption of u.i. because $\forall n, X_{-n} = \E(X_0|\F_{-n})$ and $\E(|X_0|) <\infty$ by definition then we get u.i.
+\end{rem}
+\end{thm}
+\begin{example}
+$\xi_k, k \geq 1$ be i.i.d random variables with $\E \xi_k = 0, S_n = \bigs{k=1}^n \xi_k$ Define \begin{align*}
+    \F_{-n} &= \sigma(S_n, S_{n+1}, ...) \\
+    &= \sigma(S_n, \xi_{n+1},\xi_{n+2}, ...) \\
+    X_{-n} &= \frac{S_n}{n}
+\end{align*}Claim: $(X_{-n}, \F_{-n})$ is a backward martingale
+\end{example}
+
+\newpage
+\subsection{Quadratic variation}
+\begin{dfn}[martingale difference sequence]
+An adapted sequence $(\xi_n ,\F_n)$ is a martingale difference sequence if \begin{enumerate}
+    \item $ \E\abs{\xi_k} < \infty$
+    \item $\E(\xi_{k+1}|\F_k) = 0$
+\end{enumerate}
+\end{dfn}
+\begin{example}
+Let $M_n =\bigs{i=1}^n \xi_i, M_0 = 0$ and $(M_n, \F_n)$ is a martingale then $\xi_n = M_n - M_{n-1}$ is martingale difference sequence
+\begin{enumerate}
+    \item $\forall k, \E\abs{\xi_k} \leq \E\abs{M_n} +\E\abs{M_{n-1}} <\infty$
+    \item $\E(\xi_{k+1}|\F_k) = \E(M_{k+1} - k_n|\F_k) = 0$ By martingale property.
+\end{enumerate}
+\end{example}
+\vspace{2cm}
+
+\begin{thm}[Doob decomposition theorem]
+\label{Doobdecomp}
+Let $(X_n, \F_n)$ be submartingale. Then there exists a martingale $(M_n, \F_n)$ and a predictable increasing sequence $(A_n, \F_{n-1})$ starting with $A_0 = 0$ s.t. The decomposition is unique in a.s. sense.
+\begin{equation*}
+    X_n = M_n + A_n
+\end{equation*}
+\end{thm}
+\pf \\
+\textbf{Existence:} Define $M_0 = X_0$ and the process
+\begin{align*}
+    &M_n = M_0 + \bigs{k=1}^n(X_k - \E[X_k|\F_{k-1}]) \\
+    &A_n = \bigs{k=1}^n(\E[X_k|\F_{k-1}]- X_{k-1}) \in \F_{n-1} \quad \text{Being adapted} \\
+    &\forall k, \E[X_k|\F_{k-1}]- X_{k-1} \geq 0 \implies A_n\uparrow \\
+    &M_{n} - M_{n-1} = X_n - \E[X_n|\F_{n-1}] \\
+    &\E(M_{n} - M_{n-1}|\F_{n-1}) = \E(X_n - \E[X_n|\F_{n-1}]|\F_{n-1}) = 0 \text{ a.s.} \\
+\end{align*}
+\text{Uniqueness:}
+Let $X_n = M'+A' $ be an additional decomposition and let $Y_n:= M-M' = A' - A$ which is a martingale and predictable process, hence \begin{equation*}
+    \E(Y_n |\F_{n-1}) = Y_n \text{ a.s. } \quad \E(Y_n |\F_{n-1}) = Y_{n-1} \text{ a.s. } \quad \forall n\geq 1
+\end{equation*}Notice $Y_0 = A'_0 - A_0 = 0$ this implies iteratively that $Y_n = 0$ a.s for all n, hence the decomposition is almost surely unique.
+
+\newpage
+Let $(M_n, \F_n)$ be a martingale $\E M_n^2 <\infty ,\forall n$ then $(M_n^2, \F_n)$ is a submartingale by Jensen's inequality. Then by \ref{Doobdecomp} theorem, 
+\begin{equation*}
+    M_n^2 = m_n + A_n
+\end{equation*}s.t. $(m_n, \F_n)$ be a martingale, $(A_n, \F_{n-1})$ be an increasing process.
+
+\begin{dfn}[Predictable quadratic variation] For a process $M$ \begin{align*}
+    A_n = \pqvar{M}  &= \bigs{k=1}^n(\E[M_k^2|\F_{k-1}]- M_{k-1}^2) \\
+    &= \bigs{k=1}^n \E\big[(M_k - M_{k-1})^2| \F_{k-1}\big] \\
+    \implies& M_n^2 = m_n + \pqvar{M}
+\end{align*}
+\end{dfn}
+
+\begin{dfn}[Optional quadratic variation] For a process $M$
+\begin{align*}
+    \oqvar{M}  &= \bigs{k=1}^n (M_k -M_{k-1})^2
+\end{align*}
+\end{dfn}
+
+\begin{rem}If the process stars at $0$ s.t.
+\begin{align*}
+    &M_n^2 = m_n + \pqvar{M} \\
+    &M_0 = 0 \implies m_0 = 0 \\
+    \implies& \E(M_n^2) = \E(m_n + \pqvar{M}) = \E(\pqvar{M})
+\end{align*}
+\end{rem}
+
+\vfill
+\begin{example}
+$\xi_k$ i.i.d with $\E\xi_k = 0, \E\xi_k^2 <\infty$ Then we define $M_n = \bigs{k=1}^n \xi_k, M_0 = 0$
+\begin{align*}
+    \pqvar{M} &= \bigs{k=1}^n \E\big[(M_k - M_{k-1})^2| \F_{k-1}\big] = \bigs{k=1}^n \E\big[\,\xi_k^2| \F_{k-1}\big] =\bigs{k=1}^n \E \,\xi_n^2 \\
+    \oqvar{M}  &= \bigs{k=1}^n (M_k -M_{k-1})^2 = \bigs{k=1}^n \E \,\xi_n^2
+\end{align*} Which coincides in this case. also use the next theorem \ref{SLLNM} \\
+If $\pqvar{M} \rightarrow \infty$ then $\frac{M_n}{\pqvar{M}}  = \frac{\xi_1 + ,..., \xi_n}{Var(\xi_1 + ,..., \xi_n)}\xrightarrow{a.s.} 0$
+\end{example}
+
+\newpage
+\begin{thm}[Strong law of large numbers for martingale]
+\label{SLLNM}
+Let $(M_n, \F_n)$ be a martingale, $\E M_n^2<\infty$ then \begin{equation*}
+    \prob\big(\frac{M_n}{\pqvar{M}} \text{ Converges}\big) = 1
+\end{equation*}Moreover $\pqvar{M} \rightarrow \infty \quad a.s. \implies \frac{M_n}{\pqvar{M}} \rightarrow 0 \qquad a.s.$
+\end{thm}
