@@ -513,7 +513,7 @@ An adapted sequence $(\xi_n ,\F_n)$ is a martingale difference sequence if \begi
 Let $M_n =\bigs{i=1}^n \xi_i, M_0 = 0$ and $(M_n, \F_n)$ is a martingale then $\xi_n = M_n - M_{n-1}$ is martingale difference sequence
 \begin{enumerate}
     \item $\forall k, \E\abs{\xi_k} \leq \E\abs{M_n} +\E\abs{M_{n-1}} <\infty$
-    \item $\E(\xi_{k+1}|\F_k) = \E(M_{k+1} - k_n|\F_k) = 0$ By martingale property.
+    \item $\E(\xi_{k+1}|\F_k) = \E(M_{k+1} - M_{k}|\F_k) = 0$ By martingale property.
 \end{enumerate}
 \end{example}
 \vspace{2cm}
@@ -534,7 +534,7 @@ Let $(X_n, \F_n)$ be submartingale. Then there exists a martingale $(M_n, \F_n)$
     &M_{n} - M_{n-1} = X_n - \E[X_n|\F_{n-1}] \\
     &\E(M_{n} - M_{n-1}|\F_{n-1}) = \E(X_n - \E[X_n|\F_{n-1}]|\F_{n-1}) = 0 \text{ a.s.} \\
 \end{align*}
-\text{Uniqueness:}
+\textbf{Uniqueness:}
 Let $X_n = M'+A' $ be an additional decomposition and let $Y_n:= M-M' = A' - A$ which is a martingale and predictable process, hence \begin{equation*}
     \E(Y_n |\F_{n-1}) = Y_n \text{ a.s. } \quad \E(Y_n |\F_{n-1}) = Y_{n-1} \text{ a.s. } \quad \forall n\geq 1
 \end{equation*}Notice $Y_0 = A'_0 - A_0 = 0$ this implies iteratively that $Y_n = 0$ a.s for all n, hence the decomposition is almost surely unique.
@@ -581,5 +581,258 @@ If $\pqvar{M} \rightarrow \infty$ then $\frac{M_n}{\pqvar{M}}  = \frac{\xi_1 + ,
 \label{SLLNM}
 Let $(M_n, \F_n)$ be a martingale, $\E M_n^2<\infty$ then \begin{equation*}
     \prob\big(\frac{M_n}{\pqvar{M}} \text{ Converges}\big) = 1
-\end{equation*}Moreover $\pqvar{M} \rightarrow \infty \quad a.s. \implies \frac{M_n}{\pqvar{M}} \rightarrow 0 \qquad a.s.$
+\end{equation*}
+\begin{rem}
+Now consider two situations of quadratic variation: \\
+$\pqvar{M} \rightarrow \infty \quad a.s. \implies \frac{M_n}{\pqvar{M}} \rightarrow 0 \qquad a.s.$\\
+$\pqvar{M} < \infty \quad \implies M_n\rightarrow \qquad a.s.$\\ This is proved in theorem \ref{Convergeqvar}
+\end{rem}
 \end{thm}
+
+\begin{dfn} Converges sequence notation
+\begin{equation*}
+    \{\omega; X_n(\omega) \text{ converges}\} := \{X_n \rightarrow\}
+\end{equation*}
+\end{dfn}
+\begin{example}
+In MCT \ref{SMCT} Let $(X_n, \F_n)$ be a submartingale assume
+\begin{equation*}
+    \sup\limits_n \E\abs{X_n} < \infty
+\end{equation*}
+Then $\biglim{n} X_n = X_\infty$ a.s. Here we denote as 
+\begin{equation*}
+    \{X_n \rightarrow\} = \Omega\setminus N = \Omega \quad a.s
+\end{equation*}Where N is null set (zero measure)
+\end{example}
+
+\begin{dfn}
+Let $(X_n, \F_n)$ be adapted sequence $Y\in C^+$ if
+\begin{equation*}
+    \E[(\triangle X_{\tau_a})^+ \I_{(\tau_a < \infty)}] < \infty
+\end{equation*}Where $\triangle X_n = X_n - X_{n-1}$, $\tau_a = \inf\{n\geq 1, X_n >a\} ,a\in \R$
+\end{dfn}
+
+\newpage
+\begin{thm}
+If $(X_n, \F_n)$ is a submartingale and $(X_n) \in C^+$ then 
+\begin{equation*}
+    \{\supunder{n} X_n < \infty\} = \{X_n \rightarrow\} \quad a.s.
+\end{equation*}
+\end{thm}
+\begin{cor}
+    Let $(X_n, \F_n)$ is a martingale and $\E[\supunder{n} \abs{\triangle X_n}] < \infty$ then 
+    \begin{equation*}
+        \{X_n \rightarrow\} \cup \{\linf{n} X_n = -\infty, \lsup{n} X_n = \infty\} = \Omega \quad a.s.
+    \end{equation*}
+\end{cor}
+\pf
+
+\newpage
+
+\begin{example}
+$X_n = \bigs{k=1}^n \xi_k,\,\xi_k \, i.i.d$ with $\E(\xi_k) = 0, \prob(|\xi_k| > c) >0$ makes the rv non trivial. Here $X_n$ is a martingale.
+\begin{equation*}
+    \{\linf{n} X_n = -\infty, \lsup{n} X_n = \infty\} = \Omega \quad a.s.
+\end{equation*}Since sum of i.i.d random variables does not converge. (not trivial)
+\end{example}
+\begin{example}
+$X_n = \bigs{k=1}^n \xi_k$ independent but not identical, with $\E(\xi_k) = 0, \abs{\xi_k} \leq c$ \\
+Here $X_n$ is a martingale. 
+\begin{align*}
+    \pqvar{X} = \bigs{k=1}^n \E[\xi_k^2] \quad {\langle{X} \rangle}_\infty = \bigs{k=1}^\infty \E[\xi_k^2]
+\end{align*}
+Then by Strong law of large numbers for martingale
+\begin{equation*}
+    \{{\langle{X} \rangle}_\infty <\infty\} = \{X_n \rightarrow\}
+\end{equation*} That is, $\{X_n \rightarrow\}$ iff $\bigs{k=1}^\infty \E[\xi_k^2] <\infty$
+\end{example}
+
+\begin{lem}
+Let $(X_n, \F_n)$ is a submartingale then
+\begin{equation*}
+    (X_{n\wedge\tau}, \F_n)
+\end{equation*} is a submartingale where $\tau$ is any stopping time.
+\end{lem}
+
+\newpage 
+\begin{thm}
+Let $(X_n, \F_n)$ is a submartingale then by Doob's decomposition
+\begin{equation*}
+    X_n = m_n + A_n
+\end{equation*}where $m_n$ is a martingale and $A_n$ is an increasing predictable sequence starts from 0 then:
+\begin{enumerate}
+    \item If $X_n \geq 0$ a.s. then \begin{equation*}
+        \{A_\infty < \infty\} \subset \{X_n \rightarrow\} \subset \{\supunder{n} X_n < \infty\}
+    \end{equation*}
+    \item If $(X_n)\in C^+$ then \begin{equation*}
+         \{X_n \rightarrow\} = \{\supunder{n} X_n < \infty\}\subset \{A_\infty < \infty\} 
+    \end{equation*}
+\end{enumerate}
+\end{thm}
+\begin{cor}
+    Obviously, if $X_n \geq 0$ and $(X_n)\in C^+$ we have \begin{equation*}
+         \{X_n \rightarrow\} = \{\supunder{n} X_n < \infty\} = \{A_\infty < \infty\} 
+    \end{equation*}
+\end{cor}
+
+\newpage
+\begin{example}
+Let $X_n = \bigs{k=1}^n \xi_k$ (no independency needed), with $\E(\xi_k) <\infty$, Here $X_n$ is a submartingale. As before we can decompose by Doob's theorem 
+\begin{align*}
+    A_n &= \bigs{i=1}^n [\E(X_{i}|\F_{i-1}) -X_{i-1}] = \bigs{i=1}^n \E[\xi_i|\F_{i-1}] \\
+    A_\infty &= \bigs{i=1}^n \E[\xi_i|\F_{i-1}]
+    \intertext{Then}
+    &\{\bigs{i=1}^n \E[\xi_i|\F_{i-1}] <\infty\} \subset \{X_n \rightarrow\}
+    \intertext{If $\E\supunder{n}\xi_n <\infty$ then $(X_n)\in C^+$} 
+    &\{\bigs{i=1}^n \E[\xi_i|\F_{i-1}] <\infty\} = \{X_n \rightarrow\}
+\end{align*}
+\end{example}
+
+\begin{cor}[Extension of Borel-Cantelli's lemma]
+Let $B_n \in \F_n, \xi_n = \I_{B_n}$, then
+\begin{equation*}
+    \{\bigs{i=1}^n \E[B_i|\F_{i-1}] <\infty\} = \{\bigs{i=1}^\infty \I_{B_n} <\infty \}
+\end{equation*}RHS is the set when $B$ occurs infinitly often.
+\end{cor}
+
+\newpage
+\begin{thm}
+\label{Convergeqvar}
+Let $(M_n, \F_n)$ be submartingale with $\E[M_n^2] < \infty$ then \begin{align*}
+    \{{\langle{M} \rangle}_\infty < \infty\} \subset \{M_n \rightarrow\} a.s. 
+    \intertext{Moreover, $\E[\supunder{n}\abs{\triangle M_n}^2] <\infty$ then}
+    \{{\langle{M} \rangle}_\infty < \infty\} = \{M_n \rightarrow\} a.s. 
+\end{align*}
+\end{thm}
+\pf 
+\newpage
+
+
+\begin{thm}
+Let $(M_n, \F_n)$ be martingale with $\E[M_n^2] < \infty$, $(A_n,\F_{n-1})$ be predictable non-decreasing sequences with $A_1 \geq 1, A_\infty = \infty$ if
+\begin{equation*}
+    \bigs{i}\frac{\E[(\triangle M_i)^2 |\F_{i-1}]}{A_i^2} < \infty
+\end{equation*} then 
+\begin{equation*}
+    \frac{M_n}{A_n} \xrightarrow{a.s} 0
+\end{equation*}
+\end{thm}
+\begin{rem}
+If $\pqvar{M} \xrightarrow{n\rightarrow \infty} \infty$ then we take $A_n = \pqvar{M}$ then we have Strong law of large number for martingale \ref{SLLNM}
+\end{rem}
+\begin{lem}[Kronecker Lemma]
+\label{Kronecker} Let $b_n \uparrow \infty, b_n >0, \bigs{n=1}^\infty x_n $ converges then 
+\begin{equation*}
+    \frac{1}{b_n}\bigs{i=1}^n b_i x_i \xrightarrow{n\rightarrow \infty} 0
+\end{equation*}
+\end{lem}
+
+\newpage
+Optimal quadratic variation: $\oqvar{X} = \bigs{k=1}^n (X_k -X_{k-1})^2$
+\begin{thm}[Burkholder-Davis-Gundy inequalities]
+\label{BDG}
+Let $p\in [1,\infty)$ then there exist numbers $A_p, B_p > 0$ s.t. for any martingale $X_n$ we have 
+\begin{equation*}
+    A_p\E [X]_N^{p/2} \leq \E[\supunder{n\leq N}\abs{X_n}^p] \leq B_p \E [X]_N^{p/2}
+\end{equation*}
+\end{thm}
+
+\begin{thm}
+Let $(X_n, \F_n)$ be a martingale then \begin{equation*}
+    \norm{X_n^*}_p \leq \frac{p}{p-1} \norm{X_n}_p
+\end{equation*}$X_n^*:= \max\limits_{k\leq n} \abs{X_k}, \norm{X}_p = [\E\abs{X}^p]^{1/p}$
+\end{thm}
+
+
+\newpage
+\section{Absolute continuity}
+
+Let $\prob, \Q$ be probability measure on $(\Omega, \F)$ 
+\begin{dfn}
+    $\prob$ is absolutely continuous w.r.t $\Q$ if:
+    \begin{equation*}
+        \forall A\in\F \quad \Q(A)=  0 \implies \prob(A)= 0
+    \end{equation*}Denote as $\prob\ll\Q$
+\end{dfn}\vspace{0.5cm}
+\begin{dfn}
+    $\prob$ and $\Q$ are equivalent if:
+    \begin{equation*}
+        \forall A\in\F \quad \Q(A)=  0 \text{ iff } \prob(A)= 0
+    \end{equation*}Denote as $\prob\sim\Q$
+\end{dfn}\vspace{0.5cm}
+\begin{dfn}[Radon-Nikodym derivative]
+    If $\prob$ is absolutely continuous w.r.t $\Q$, $\prob\ll\Q$ we define \begin{equation*}
+        \frac{\diff \Q}{\diff \prob} = X,\quad s.t. \E_\Q (Y) = \into Y\diff \Q = \into Y X \diff \prob = \E_\prob (XY)
+    \end{equation*}
+\end{dfn}
+\begin{dfn}
+    $\prob$ and $\Q$ are singular if:
+    \begin{equation*}
+        \exists A\in\F \quad \Q(A)=  0, \prob(A)= 1
+    \end{equation*}Denote as $\prob\perp\Q$
+\end{dfn}
+\newpage
+\textbf{Settings:} Let $(\Omega, \F)$ be measurable space for single experiment,$\prob_0, \Q_0$ be two probability measures, $X_1$ be r.v.then define
+\begin{align*}
+    \Omega &= \Omega_0 \bigotimes \Omega_0 ... \\
+    X_1, &X_2, ... \text{r.vs being independent with distribution $\prob_k, \Q_k$}\\
+    \F_n &= \sigma(x_1, ... X_n) \\
+    \F_\infty &= \sigma(x_1, ... X_n, ...) \\
+    \prob &= \prob_1 \bigotimes \prob_2 ... \\
+    \Q &= \Q \bigotimes \Q ... \\
+\end{align*} 
+
+\begin{thm}[Kakutani] \label{Kakutani}
+Assume $\frac{\diff \Q_n}{\diff \prob_n} = g_n(X_n), Q_n \ll \prob_n$ Let $f_n = g_1(X_1) \cdot ... \cdot g_n(X_n)$ then 
+\begin{enumerate}
+    \item $(f_n, \F_n)$ is a $\prob-$ martingale
+    \item Let $\tau$ be an $(\F_n)$ stopping time s.t. $\prob(\tau < \infty) =1, \Q(\tau < \infty) =1$ then 
+    \begin{equation*}
+        f_\tau = \frac{\diff \Q}{\diff \prob}\big|_{\F_\tau}
+    \end{equation*}
+    \item Either $Q \ll \prob$ or $Q \perp \prob$
+    \begin{enumerate}
+        \item If $\bigp{n=1}^\infty \int_{\Omega_0} \sqrt{g_n} \diff \prob_n >0$ then
+        \begin{enumerate}
+            \item $f_n \rightarrow f_\infty \quad \prob-a.s.$
+            \item $f_n \xrightarrow{\ls{1}} f_\infty$
+            \item $f_\infty = \frac{\diff \Q}{\diff \prob}\big|_{\F_\infty}$
+        \end{enumerate}
+        \item If $\bigp{n=1}^\infty \int_{\Omega_0} \sqrt{g_n} \diff \prob_n =0\quad$ then
+        \begin{enumerate}
+            \item $f_n \rightarrow 0 \quad \prob-a.s.$
+            \item $f_n \rightarrow \infty \quad \Q-a.s.$
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+\end{thm}
+
+\newpage 
+\pf \\
+\begin{enumerate}
+    \item $f_n = g_1(X_1) \cdot ... \cdot g_n(X_n)$ being independent because $X_n$ are independent.
+    \begin{enumerate}
+        \item $\E_\prob\abs{f_n} = \E_\prob f_n = \bigp{k=1}^n \E_\prob g_k(X_k) = \bigp{k=1}^n \int \frac{\diff \Q_k}{\diff \prob_k} \diff \prob_k = \bigp{k=1}^n \int \diff \Q_k = 1$ 
+        \item $f_n \in \F_n$ being adapted.
+        \item $\E_\prob(f_{n+1}|\F_n) = f_n \E_\prob(g_{n+1}|\F_n) = f_n$
+    \end{enumerate}
+    \item Take $B_1, B_2, ..., B_n \in \F_0$ then
+    \begin{align*}
+        \Q(B_1\times B_2 \times ... \times B_n \times \Omega_0 \times \Omega_0 \times... ) &= \bigp{k=1}^n\Q_k(B_k) = \bigp{k=1}^n \int_{B_k} g_k(X_k) \diff\prob_k \\
+        &= \int_{B_1\times B_2 \times ... \times B_n \times \Omega_0...} g_1(X_1)\cdot...\cdot g_n(X_n) \diff\prob \\
+        &= \int_{B_1\times B_2 \times ... \times B_n \times \Omega_0...} f_n \diff\prob
+    \end{align*}By $\pi-\lambda$ system lemma, we may extend to all $B\in \F_n$ s.s. \begin{equation*}
+        \Q(B) = \int_B f_n \diff \prob
+    \end{equation*}
+    Take $B\in\F_\tau, B\cap \{\tau = n\}\in \F_n$ 
+    \begin{align*}
+        \Q(B) &= \Q(B\cap \{\tau < \infty\}) = \bigs{n=1}^\infty \Q(B\cap \{\tau = n\}) \\
+        &= \bigs{n=1}^\infty \int_{B\cap \{\tau = n\}} f_n \diff\prob \\
+        &= \int_{B\cap \{\tau < \infty\}} f_\tau \diff\prob = \int_{B} f_\tau \diff\prob \\
+        &\implies f_\tau = \frac{\diff \Q}{\diff \prob}\big|_{\F_\tau}
+    \end{align*}
+    \item $0 \leq \int_{\Omega_0} \sqrt{g_n} \diff\prob_n \stackrel{Jensen}{\leq} \sqrt{\int_{\Omega_0} g_n \diff\prob_n} =1 \implies 0\leq \bigp{n=1}^\infty \int_{\Omega_0} \sqrt{g_n} \diff\prob_n <\infty$
+    \begin{enumerate}
+        \item If $\bigp{n=1}^\infty \int_{\Omega_0} \sqrt{g_n} \diff \prob_n >0$
+    \end{enumerate}
+\end{enumerate}
