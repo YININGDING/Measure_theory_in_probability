@@ -208,9 +208,9 @@ For $X\in \ls{2}$ with $m = \E(X)$
     \prob(\abs{X-m}\geq \epsilon) \leq \frac{V(X)}{\epsilon^2}
 \end{equation*}
 \end{thm}
-\pf Define $Y = (X-m)^2 \in \ls{1}$, By Markov inequality \ref{markov}
+\pf Define $Y = \abs{X-m}\in \ls{1}, g(x)=x^2 $, By Markov inequality \ref{markov}
 \begin{equation*}
-\prob(Y\geq \epsilon) \leq \frac{\E(Y)}{\epsilon^2} =  \frac{V(X)}{\epsilon^2}   
+\prob(\abs{X-m}\geq \epsilon) \leq \frac{\E(g(\abs{X-m}))}{g(\epsilon)} =  \frac{V(X)}{\epsilon^2}   
 \end{equation*}\qed
 \begin{dfn}
 For $X,Y\in\ls{1}$ with $X\cdot Y\in \ls{1}$ we define 
