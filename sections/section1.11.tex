@@ -680,11 +680,11 @@ Let $(X_n, \F_n)$ is a submartingale then by Doob's decomposition
 Let $X_n = \bigs{k=1}^n \xi_k$ (no independency needed), with $\E(\xi_k) <\infty$, Here $X_n$ is a submartingale. As before we can decompose by Doob's theorem 
 \begin{align*}
     A_n &= \bigs{i=1}^n [\E(X_{i}|\F_{i-1}) -X_{i-1}] = \bigs{i=1}^n \E[\xi_i|\F_{i-1}] \\
-    A_\infty &= \bigs{i=1}^n \E[\xi_i|\F_{i-1}]
+    A_\infty &= \bigs{i=1}^\infty \E[\xi_i|\F_{i-1}]
     \intertext{Then}
-    &\{\bigs{i=1}^n \E[\xi_i|\F_{i-1}] <\infty\} \subset \{X_n \rightarrow\}
+    &\{\bigs{i=1}^\infty \E[\xi_i|\F_{i-1}] <\infty\} \subset \{X_n \rightarrow\}
     \intertext{If $\E\supunder{n}\xi_n <\infty$ then $(X_n)\in C^+$} 
-    &\{\bigs{i=1}^n \E[\xi_i|\F_{i-1}] <\infty\} = \{X_n \rightarrow\}
+    &\{\bigs{i=1}^\infty \E[\xi_i|\F_{i-1}] <\infty\} = \{X_n \rightarrow\}
 \end{align*}
 \end{example}
 

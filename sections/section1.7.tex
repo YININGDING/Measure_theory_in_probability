@@ -1,7 +1,7 @@
 % !TEX root = ../mat999.tex
 \newpage
 \section{Convergence}
-\subsection{$L^p$ spaces (Lebesgue spaces)}
+\subsection{p norm finite-dimensional vector spaces (Lebesgue spaces)}
 The spaces of all integrable functions is defined by $L^1$ or $L_1 (\Omega, \F, \mu)$, i.e, $f \in \ls{1}$ iff $f$ is measurable and $\int |f| d\mu < \infty$ \\
 $\ls{1}$ is a vector space as 
 \begin{itemize}
@@ -54,7 +54,7 @@ We denote by $\ls{p}(\Omega, \F, \mu)$ the space:
     \ls{p} = \{f:\Omega \mapsto \R| \text{measurable and } \norm{f}_p = \left( \into \abs{f}^p d\mu \right)^{\frac{1}{p}} < \infty\} 
 \end{equation*}quotient the space by equivalence relation $\sim$, that is:
 \begin{equation*}
-    f,g\in \ls{p}, f\sim g \Longleftrightarrow f-g = 0 \text{ a.e. } \mu
+    f,g\in \ls{p}, f\sim g \Longleftrightarrow f-g = 0 \text{ a.e. }
 \end{equation*}Because without this, $\norm{f}_p = 0 \notimplies f = 0$, say for Lebesgue measure on $[0,1],$ 1 for rational and 0 for irrational.
 \begin{thm}[Banach space]
 $\ls{p}, p \geq 1$ is complete normed vector space (Banach space) i.e. every Cauchy sequence $\{f_n\}\subset \ls{p}$ has a limit in $\ls{p}$
@@ -88,7 +88,7 @@ Apply Fatou's Lemma we have:
     \lsup{n} \int \abs{f_n-f} d\mu &\leq \int 2g - \int 2g = 0 \\
     0 \leq \linf{n}\int \abs{f_n-f} d\mu &\leq \lsup{n}\int \abs{f_n-f} d\mu \leq 0 \\
     \linf{n} = \lsup{n}, \text{ Limit exists and } &\biglim{n}\int \abs{f_n-f}) d\mu = 0 \\
-    0 \leq \abs{\int (f_n-f)) d\mu} &\leq \int \abs{f_n-f}) d\mu \xrightarrow{n \rightarrow \infty} \\
+    0 \leq \abs{\int (f_n-f)) d\mu} &\leq \int \abs{f_n-f}) d\mu \xrightarrow{n \rightarrow \infty} 0\\
     \biglim{n \rightarrow \infty} \int f_n d\mu &= \int f d\mu
 \end{align*}
 \newpage
@@ -159,7 +159,7 @@ This proof is given at end of chapter 9
     Let $f_n := n \I_{(0,\frac{1}{n})}$ on $((0,1),\B, \lambda)$.
     \begin{align*}
         &f_n(\omega) \rightarrow 0 \quad \forall \omega \in \Omega \\
-        &\int \abs{f_n - f} d\mu = \int f_n d\mu = n\lambda((1, \frac{1}{n})) = 1 \neq 0
+        &\int \abs{f_n - f} d\mu = \int f_n d\mu = n\lambda((0, \frac{1}{n})) = 1 \neq 0
     \end{align*}Note: we have $f_n \xrightarrow{\mu}f$ \\
     Let $\epsilon > 0\quad \lambda(\abs{f_n-0} > \epsilon) = \lambda(n\I_{(0,\frac{1}{n})} > \epsilon) \leq \frac{1}{n} \xrightarrow{n \rightarrow \infty}  0$
     \item $f_n \xrightarrow{\ls{1}}f + f_n \xrightarrow{\mu}f \notimplies f_n \xrightarrow{\text{a.e.}}f$ \\
@@ -167,7 +167,7 @@ This proof is given at end of chapter 9
     \begin{align*}
         &\int \abs{f_n - f} d\mu = \int f_n d\mu = \lambda(\text{support }f_n) = \xrightarrow{n \rightarrow \infty}  0 \\
         &\lambda(\abs{f_n} > \epsilon) \leq \lambda(\text{support }f_n) \xrightarrow{n \rightarrow \infty}  0 \\
-        &\forall \omega\in\Omega, f_n(\omega) = (0,0,1,...,0,0,1,0,..)\qquad \exists\infty \text{ many n's the sequence does not converge for all omega}
+        &\forall \omega\in\Omega, f_n(\omega) = (0,0,1,...,0,0,1,0,..)\qquad \exists\infty \text{ many n's the sequence does not converge}
     \end{align*}
     \item $f_n \xrightarrow{\text{a.e.}}f \notimplies f_n \xrightarrow{\mu}f$ \\
     Let $f_n := \I_{[n,\infty)}$ on $([0,\infty),\B, \lambda)$.
@@ -211,7 +211,7 @@ By DCT we have $\biglim{n}\int \abs{f_{m_k}-f} = 0, f_{m_k} \xrightarrow{\ls{1}}
 \end{thm}
 
 The next inequality will be used in proving Holder's inequality
-\begin{thm}[Young's inequality] for $\omega, z > 0$
+\begin{thm}[Young's inequality] for $\omega, z > 0$ with $\frac{1}{q}+\frac{1}{p} = 1$
 \begin{equation*}
     \omega z \leq \frac{1}{p} \omega^p + \frac{1}{q} z^q
 \end{equation*}
@@ -233,7 +233,7 @@ The next inequality will be used in proving Holder's inequality
     f\geq f \I_{\{f\geq \alpha\}} \geq \alpha\I_{\{f\geq \alpha\}} \geq 0
 \end{equation*}Integrate both side also we have monotonicity
 \begin{equation*}
-    \int \alpha\I_{\{f\geq \alpha\}} = \alpha\mu\{\omega| f(\omega) \leq \alpha\} \leq \int fd\mu \implies \mu\{\omega| f(\omega) \leq \alpha\} \leq \frac{1}{\alpha}\int fd\mu
+    \int \alpha\I_{\{f\geq \alpha\}} = \alpha\mu\{\omega| f(\omega) \geq \alpha\} \leq \int fd\mu \implies \mu\{\omega| f(\omega) \geq \alpha\} \leq \frac{1}{\alpha}\int fd\mu
 \end{equation*}\qed
 
 \textbf{Proof of Minkowski's inequality:} \\

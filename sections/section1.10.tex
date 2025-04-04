@@ -115,7 +115,7 @@ Let $(\Omega, \F, \prob)$ be given, $\setg \subset\F,\sigma$-algebra with $X\in\
 Assume the following are all well defined (integrability is satisfied):
 \begin{enumerate}
     \item If $X\geq 0$ a.s then $\E(X|\setg) \geq 0$ a.s.
-    \item $X \geq Y \implies \E(X|\setg) \geq \E(Y|\setg)$
+    \item $X \geq Y a.s \implies \E(X|\setg) \geq \E(Y|\setg)$ a.s
 \end{enumerate}
 \end{cor}
 
@@ -147,7 +147,8 @@ $\E(X|\setg_1)$ is $\setg_1$-measurable, take $A\in \setg_1 \implies A\in \setg_
     \E(\I_A \E(X|\setg_2)) = \E(X\I_A) \implies \E(\E(X|\setg_2)|\setg_1) = \E(X|\setg_1) 
 \end{equation*}
 \textbf{More properties:} \\
-Recall independency between sigma algebras: $Y_1, Y_2$ independent, $A\in Y_1, B\in Y_2$ then $\prob(A\cap B) = \prob(A)\prob(B)$. \\
+Recall independency between sigma algebras: \\
+$Y_1, Y_2$ independent, $A\in Y_1, B\in Y_2$ then $\prob(A\cap B) = \prob(A)\prob(B)$. \\
 If $X$ is independent of $\setg$ ($\sigma(X), \setg$) then \begin{equation*}
     \E(X|\setg) = \E(X)
 \end{equation*}

@@ -37,12 +37,13 @@ let $(\Omega, \mathcal{F}, \mu)$ be a measure space s.t. $A, B, A_1, A_2, ...\ i
     \item $A\subset B \Rightarrow \mu(A) \leq \mu(B)$
     \item $A \subset A_n \bigcup\limits_{n} \Rightarrow \mu(A) \leq \sum\limits_{n \geq 1}\mu(A_n)$
     \item (Inclusion-exclusion formula) if $\mu(\Omega) < \infty$, for $A_1, A_2, ... A_n\in \mathcal{F}$
-    \begin{equation*}
-    \mu(\bigcup_{i=1}^{n} A_{i})=\sum_{i=1}^{n}\mu(A_{i})-\sum_{1 \leq i<j \leq n}\mu(A_{i} \cap A_{j})+\sum_{1 \leq i<j<k \leq n}\mu(A_{i} \cap A_{j} \cap A_{k})-\cdots+(-1)^{n-1}\mu(A_{1} \cap \cdots \cap A_{n})
-    \end{equation*}
+    \begin{align*}
+         \mu(\bigcup_{i=1}^{n} A_{i})&=\sum_{i=1}^{n}\mu(A_{i})-\sum_{1 \leq i<j \leq n}\mu(A_{i} \cap A_{j}) \\
+         &+\sum_{1 \leq i<j<k \leq n}\mu(A_{i} \cap A_{j} \cap A_{k})-\cdots+(-1)^{n-1}\mu(A_{1} \cap \cdots \cap A_{n})
+    \end{align*}
     \newpage
     \textbf{Continuity}
-    \item if $A_n \uparrow A (A_n \subset A_{n+1}, \bigcup A_n = A)$, then $\mu(A_n) \uparrow \mu(A)$ \\[5cm]
+    \item if $A_n \uparrow A (A_n \subset A_{n+1}, \bigcup A_n = A)$, then $\mu(A_n) \uparrow \mu(A)$
     \item if $A_n \downarrow A (A_{n+1} \subset A_n, \bigcap A_n = A)$, with $\mu(A_1) < \infty$ then $\mu(A_n) \downarrow \mu(A)$
 \end{enumerate}
 \textbf{Q: Do we need $\mu(A_1) < \infty$ ?} Hint: \textcolor{red}{Yes}
